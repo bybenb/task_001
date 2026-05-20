@@ -66,6 +66,38 @@ class Interpreter:
         elif cmd["tipo"] == "RELATORIO_GERAL":
             return {"sucesso": True, "mensagem": f"Total de estudantes: {len(self.estudantes)}", "alunos": self.estudantes}
 
+        elif cmd["tipo"] == "ADICIONAR_NOTAS":
+            matricula = cmd.get("matricula")
+            notas = cmd.get("notas", [])
+
+            # Encontrar estudante
+            for est in self.estudantes:
+                if est["matricula"] == matricula:
+                    # Validação básica das notas (0-20)
+                    for n in notas:
+                        if not isinstance(n, int) and not isinstance(n, float):
+                            return {"sucesso": False, "mensagem": "Notas inválidas (devem ser números)."}
+                        if n < 0 or n > 20:
+                            return {"sucesso": False, "mensagem": "Notas devem estar entre 0 e 20."}
+
+                    # Garantir chave 'notas'
+                    if "notas" not in est or not isinstance(est["notas"], list):
+                        est["notas"] = []
+
+                    # Adicionar as novas notas
+                    est["notas"].extend(notas)
+                    self.save_data()
+
+                    media_adicionadas = sum(notas) / len(notas) if notas else 0
+                    media_geral = sum(est["notas"]) / len(est["notas"]) if est["notas"] else 0
+
+                    return {
+                        "sucesso": True,
+                        "mensagem": f"Notas adicionadas para {est['nome']}. Média das notas adicionadas: {media_adicionadas:.2f}. Média geral: {media_geral:.2f}.",
+                        "aluno": est
+                    }
+
+            return {"sucesso": False, "mensagem": f"Estudante com matrícula {matricula} não encontrado."}
         elif cmd["tipo"] == "SAIR":
             return {"sucesso": True, "mensagem": "Sistema encerrado."}
 

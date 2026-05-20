@@ -21,6 +21,7 @@ class Lexer:
             'ESTUDANTE': 'ESTUDANTE',
             'CONSULTAR': 'CONSULTAR',
             'NOTAS': 'NOTAS',
+            'ADICIONAR': 'ADICIONAR',
             'RELATORIO': 'RELATORIO',
             'TURMA': 'TURMA',
             'GERAL': 'GERAL',

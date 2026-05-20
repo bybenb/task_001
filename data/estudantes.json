@@ -1,0 +1,32 @@
+[
+  {
+    "nome": "\"Tom Holland\"",
+    "matricula": 20231281,
+    "turma": "\"Marvel\"",
+    "notas": []
+  },
+  {
+    "nome": "\"Yuri Briar\"",
+    "matricula": 2022,
+    "turma": "\"\"",
+    "notas": []
+  },
+  {
+    "nome": "\"Giyu Tomioka\"",
+    "matricula": 20261010,
+    "turma": "\"1º Hashira\"",
+    "notas": []
+  },
+  {
+    "nome": "\"Uzui Tengen\"",
+    "matricula": 20261011,
+    "turma": "\"1º Hashira\"",
+    "notas": []
+  },
+  {
+    "nome": "\"Kunigami Rensuke\"",
+    "matricula": 20261012,
+    "turma": "\"1º Z\"",
+    "notas": []
+  }
+]

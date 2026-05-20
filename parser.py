@@ -44,6 +44,8 @@ class Parser:
             return self.comando_cadastrar()
         elif token.tipo == 'CONSULTAR':
             return self.comando_consultar()
+        elif token.tipo == 'ADICIONAR':
+            return self.comando_adicionar_notas()
         elif token.tipo == 'RELATORIO':
             return self.comando_relatorio()
         else:
@@ -94,4 +96,20 @@ class Parser:
             self.eat('GERAL')
             return {"tipo": "RELATORIO_GERAL"}
         
+        return None
+
+    def comando_adicionar_notas(self):
+        self.eat('ADICIONAR')
+        self.eat('NOTAS')
+        matricula = self.eat('INTEGER')
+        nota1 = self.eat('INTEGER')
+        nota2 = self.eat('INTEGER')
+        nota3 = self.eat('INTEGER')
+
+        if matricula and nota1 and nota2 and nota3:
+            return {
+                "tipo": "ADICIONAR_NOTAS",
+                "matricula": int(matricula.valor),
+                "notas": [int(nota1.valor), int(nota2.valor), int(nota3.valor)]
+            }
         return None
