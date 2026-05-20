@@ -14,7 +14,14 @@ class Interpreter:
                 json.dump([], f, ensure_ascii=False, indent=2)
         
         with open(DATA_FILE, 'r', encoding='utf-8') as f:
-            self.estudantes = json.load(f)
+            try:
+                self.estudantes = json.load(f)
+            except json.JSONDecodeError:
+                # File exists but is empty or invalid JSON; initialize empty list
+                self.estudantes = []
+                # Overwrite the file with a valid empty JSON array
+                with open(DATA_FILE, 'w', encoding='utf-8') as fw:
+                    json.dump(self.estudantes, fw, ensure_ascii=False, indent=2)
 
     def save_data(self):
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
