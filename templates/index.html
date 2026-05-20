@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EscolaLang - Compilador Escolar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .terminal { 
+            background-color: #1e1e1e; 
+            color: #00ff00; 
+            font-family: 'Courier New', monospace;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .btn-executar {
+            background: linear-gradient(45deg, #007bff, #00c851);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4 text-primary">🏫 EscolaLang Compiler</h1>
+        <p class="text-center text-muted">Linguagem de Comandos Escolares</p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Comandos Disponíveis:</h5>
+                <ul class="list-group small">
+                    <li class="list-group-item">CADASTRAR ESTUDANTE "Nome" matricula "Turma"</li>
+                    <li class="list-group-item">CONSULTAR NOTAS matricula</li>
+                    <li class="list-group-item">RELATORIO TURMA "Nome da Turma"</li>
+                    <li class="list-group-item">RELATORIO GERAL</li>
+                    <li class="list-group-item">SAIR</li>
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h5>Exemplo:</h5>
+                <pre class="bg-light p-3">CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"
+CONSULTAR NOTAS 20230145
+RELATORIO TURMA "12º A"</pre>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <textarea id="codigo" class="form-control" rows="8" placeholder="Digite seus comandos aqui..."></textarea>
+        </div>
+
+        <div class="text-center mt-3">
+            <button onclick="executarCodigo()" class="btn btn-success btn-lg px-5 btn-executar">
+                ▶️ Executar Código
+            </button>
+        </div>
+
+        <div id="output" class="terminal mt-4"></div>
+    </div>
+
+    <script>
+        function executarCodigo() {
+            const codigo = document.getElementById('codigo').value;
+            const output = document.getElementById('output');
+            output.innerHTML = '<span style="color:yellow">Compilando e executando...</span>';
+
+            fetch('/executar', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({codigo: codigo})
+            })
+            .then(res => res.json())
+            .then(data => {
+                let html = '';
+                data.resultados.forEach(r => {
+                    if (r.tipo === 'sucesso') {
+                        html += `<span style="color:#00ff00">✓ ${r.mensagem}</span><br>`;
+                    } else {
+                        html += `<span style="color:#ff4444">✗ ${r.mensagem}</span><br>`;
+                    }
+                });
+                output.innerHTML = html || 'Nenhum resultado.';
+            })
+            .catch(err => {
+                output.innerHTML = '<span style="color:red">Erro de conexão com o servidor.</span>';
+            });
+        }
+    </script>
+</body>
+</html>
