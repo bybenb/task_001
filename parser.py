@@ -15,8 +15,13 @@ class Parser:
             self.pos += 1
             return token
         else:
-            self.erros.append(f"Erro sintático na linha {token.linha if token else '?'} - Esperado: {tipo_esperado}, Encontrado: {token.tipo if token else 'EOF'}")
-            self.pos += 1  # tentar continuar
+            # Não avançar automaticamente se não houver token; deixe o chamador decidir como prosseguir
+            self.erros.append(
+                f"Erro sintático na linha {token.linha if token else '?'} - Esperado: {tipo_esperado}, Encontrado: {token.tipo if token else 'EOF'}"
+            )
+            if token:
+                # tentar sincronizar pulando o token atual
+                self.pos += 1
             return None
 
     def parse(self):
@@ -46,6 +51,8 @@ class Parser:
             return self.comando_consultar()
         elif token.tipo == 'ADICIONAR':
             return self.comando_adicionar_notas()
+        elif token.tipo == 'REMOVER':
+            return self.comando_remover()
         elif token.tipo == 'RELATORIO':
             return self.comando_relatorio()
         else:
@@ -111,5 +118,17 @@ class Parser:
                 "tipo": "ADICIONAR_NOTAS",
                 "matricula": int(matricula.valor),
                 "notas": [int(nota1.valor), int(nota2.valor), int(nota3.valor)]
+            }
+        return None
+
+    def comando_remover(self):
+        self.eat('REMOVER')
+        self.eat('ESTUDANTE')
+        matricula = self.eat('INTEGER')
+
+        if matricula:
+            return {
+                "tipo": "REMOVER_ESTUDANTE",
+                "matricula": int(matricula.valor)
             }
         return None

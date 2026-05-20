@@ -37,18 +37,32 @@ class Interpreter:
     def executar_comando(self, cmd):
         if cmd["tipo"] == "CADASTRAR_ESTUDANTE":
             # Verificar se já existe
+            # Validações básicas
+            nome = cmd.get("nome", "").strip()
+            matricula = cmd.get("matricula")
+            turma = cmd.get("turma", "").strip()
+
+            if not nome:
+                return {"sucesso": False, "mensagem": "Nome do estudante não pode ser vazio."}
+
+            if not isinstance(matricula, int) or matricula <= 0:
+                return {"sucesso": False, "mensagem": "Matrícula inválida."}
+
+            if not turma:
+                return {"sucesso": False, "mensagem": "Turma inválida."}
+
             for est in self.estudantes:
-                if est["matricula"] == cmd["matricula"]:
-                    return {"sucesso": False, "mensagem": f"Erro: Matrícula {cmd['matricula']} já existe!"}
-            
+                if est["matricula"] == matricula:
+                    return {"sucesso": False, "mensagem": f"Erro: Matrícula {matricula} já existe!"}
+
             self.estudantes.append({
-                "nome": cmd["nome"],
-                "matricula": cmd["matricula"],
-                "turma": cmd["turma"],
-                "notas": []  # futuro
+                "nome": nome,
+                "matricula": matricula,
+                "turma": turma,
+                "notas": []
             })
             self.save_data()
-            return {"sucesso": True, "mensagem": f"Estudante {cmd['nome']} cadastrado com sucesso!"}
+            return {"sucesso": True, "mensagem": f"Estudante {nome} cadastrado com sucesso!"}
 
         elif cmd["tipo"] == "CONSULTAR_NOTAS":
             for est in self.estudantes:
@@ -97,6 +111,14 @@ class Interpreter:
                         "aluno": est
                     }
 
+            return {"sucesso": False, "mensagem": f"Estudante com matrícula {matricula} não encontrado."}
+        elif cmd["tipo"] == "REMOVER_ESTUDANTE":
+            matricula = cmd.get("matricula")
+            for i, est in enumerate(self.estudantes):
+                if est["matricula"] == matricula:
+                    removed = self.estudantes.pop(i)
+                    self.save_data()
+                    return {"sucesso": True, "mensagem": f"Estudante {removed['nome']} (matrícula {matricula}) removido com sucesso.", "aluno": removed}
             return {"sucesso": False, "mensagem": f"Estudante com matrícula {matricula} não encontrado."}
         elif cmd["tipo"] == "SAIR":
             return {"sucesso": True, "mensagem": "Sistema encerrado."}
