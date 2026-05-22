@@ -28,5 +28,17 @@
     "matricula": 20261012,
     "turma": "\"1º Z\"",
     "notas": []
+  },
+  {
+    "nome": "\"Clark Kent\"",
+    "matricula": 10000,
+    "turma": "\"Justice League\"",
+    "notas": []
+  },
+  {
+    "nome": "\"Bruce Wayne\"",
+    "matricula": 10001,
+    "turma": "\"Justice League\"",
+    "notas": []
   }
 ]
