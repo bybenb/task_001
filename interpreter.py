@@ -122,6 +122,85 @@ class Interpreter:
                     self.save_data()
                     return {"sucesso": True, "mensagem": f"Estudante {removed['nome']} (matrícula {matricula}) removido com sucesso.", "aluno": removed}
             return {"sucesso": False, "mensagem": f"Estudante com matrícula {matricula} não encontrado."}
+        elif cmd["tipo"] == "LISTAR_TODOS":
+            if not self.estudantes:
+                return {"sucesso": True, "mensagem": "Nenhum estudante cadastrado.", "alunos": []}
+            return {"sucesso": True, "mensagem": f"Total de {len(self.estudantes)} estudante(s) cadastrado(s).", "alunos": self.estudantes}
+
+        elif cmd["tipo"] == "PROMOVER_TURMA":
+            turma_origem = cmd.get("turma_origem")
+            turma_destino = cmd.get("turma_destino")
+            
+            alunos_promovidos = [est for est in self.estudantes if est["turma"] == turma_origem]
+            if not alunos_promovidos:
+                return {"sucesso": False, "mensagem": f"Nenhum aluno encontrado na turma {turma_origem}."}
+            
+            for est in alunos_promovidos:
+                est["turma"] = turma_destino
+            
+            self.save_data()
+            return {"sucesso": True, "mensagem": f"{len(alunos_promovidos)} aluno(s) promovido(s) de {turma_origem} para {turma_destino}.", "alunos": alunos_promovidos}
+
+        elif cmd["tipo"] == "ESTATISTICAS":
+            if not self.estudantes:
+                return {"sucesso": True, "mensagem": "Nenhum estudante cadastrado.", "estatisticas": {}}
+            
+            # Agrupar por turma
+            turmas = {}
+            todas_notas = []
+            
+            for est in self.estudantes:
+                turma = est["turma"]
+                if turma not in turmas:
+                    turmas[turma] = {"alunos": 0, "notas": []}
+                
+                turmas[turma]["alunos"] += 1
+                notas_est = est.get("notas", [])
+                turmas[turma]["notas"].extend(notas_est)
+                todas_notas.extend(notas_est)
+            
+            # Calcular estatísticas por turma
+            stats_por_turma = {}
+            for turma, dados in turmas.items():
+                notas = dados["notas"]
+                if notas:
+                    media = sum(notas) / len(notas)
+                    max_nota = max(notas)
+                    min_nota = min(notas)
+                else:
+                    media = max_nota = min_nota = 0
+                
+                stats_por_turma[turma] = {
+                    "alunos": dados["alunos"],
+                    "media": round(media, 2),
+                    "max": max_nota,
+                    "min": min_nota,
+                    "total_notas": len(notas)
+                }
+            
+            # Estatísticas gerais
+            if todas_notas:
+                media_geral = sum(todas_notas) / len(todas_notas)
+                max_geral = max(todas_notas)
+                min_geral = min(todas_notas)
+            else:
+                media_geral = max_geral = min_geral = 0
+            
+            mensagem = f"Total de estudantes: {len(self.estudantes)}\\nMédia geral: {media_geral:.2f}\\nMaior nota: {max_geral}\\nMenor nota: {min_geral}"
+            
+            return {
+                "sucesso": True,
+                "mensagem": mensagem,
+                "estatisticas": {
+                    "total_alunos": len(self.estudantes),
+                    "total_turmas": len(turmas),
+                    "media_geral": round(media_geral, 2),
+                    "max_geral": max_geral,
+                    "min_geral": min_geral,
+                    "por_turma": stats_por_turma
+                }
+            }
+
         elif cmd["tipo"] == "SAIR":
             return {"sucesso": True, "mensagem": "Sistema encerrado."}
 

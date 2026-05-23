@@ -53,6 +53,12 @@ class Parser:
             return self.comando_adicionar_notas()
         elif token.tipo == 'REMOVER':
             return self.comando_remover()
+        elif token.tipo == 'LISTAR':
+            return self.comando_listar()
+        elif token.tipo == 'PROMOVER':
+            return self.comando_promover()
+        elif token.tipo == 'ESTATISTICAS':
+            return self.comando_estatisticas()
         elif token.tipo == 'RELATORIO':
             return self.comando_relatorio()
         else:
@@ -132,3 +138,32 @@ class Parser:
                 "matricula": int(matricula.valor)
             }
         return None
+
+    def comando_listar(self):
+        self.eat('LISTAR')
+        token = self.current_token()
+        
+        if token and token.tipo == 'TODOS':
+            self.eat('TODOS')
+            return {"tipo": "LISTAR_TODOS"}
+        
+        self.erros.append(f"Comando LISTAR esperava TODOS (linha {token.linha if token else '?'})")
+        return None
+
+    def comando_promover(self):
+        self.eat('PROMOVER')
+        self.eat('TURMA')
+        turma_origem = self.eat('STRING')
+        turma_destino = self.eat('STRING')
+
+        if turma_origem and turma_destino:
+            return {
+                "tipo": "PROMOVER_TURMA",
+                "turma_origem": turma_origem.valor,
+                "turma_destino": turma_destino.valor
+            }
+        return None
+
+    def comando_estatisticas(self):
+        self.eat('ESTATISTICAS')
+        return {"tipo": "ESTATISTICAS"}

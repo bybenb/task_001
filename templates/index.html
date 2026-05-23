@@ -7,70 +7,244 @@
     <title>BravON - Compilador Escolar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --terminal-bg: #1e1e1e;
+            --terminal-fg: #00ff00;
+        }
+
+        body.dark-mode {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+        }
+
         body {
-            background-color: #f8f9fa;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .terminal {
-            background-color: #1e1e1e;
-            color: #00ff00;
+            background-color: var(--terminal-bg);
+            color: var(--terminal-fg);
             font-family: 'Courier New', monospace;
             padding: 15px;
             border-radius: 8px;
             min-height: 300px;
             max-height: 400px;
             overflow-y: auto;
+            border: 1px solid #00ff00;
         }
 
         .btn-executar {
             background: linear-gradient(45deg, #007bff, #00c851);
         }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .btn-exemplo {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .historico-item {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.3rem;
+            background-color: rgba(0, 123, 255, 0.1);
+            border-left: 3px solid #007bff;
+        }
+
+        .historico-item:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+        }
+
+        .tabela-resultado {
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .badge-turma {
+            margin-right: 0.3rem;
+        }
+
+        .estatisticas {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-valor {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeBtn" class="btn btn-outline-secondary" onclick="toggleTheme()">🌙 Tema Escuro</button>
+    </div>
+
     <div class="container mt-5">
-        <h1 class="text-center mb-4 text-primary"> BravON</h1>
-        <p class="text-center text-muted">Linguagem de Comandos Escolares</p>
+        <h1 class="text-center mb-1 text-primary">⚡ BravON</h1>
+        <p class="text-center text-secondary mb-4">Linguagem de Comandos Escolares Inteligente</p>
 
         <div class="row">
+            <!-- Coluna Esquerda: Comandos e Exemplos -->
             <div class="col-md-6">
-                <h5>Comandos Disponíveis:</h5>
-                <ul class="list-group small">
-                    <li class="list-group-item">CADASTRAR ESTUDANTE "Nome" matricula "Turma"</li>
-                    <li class="list-group-item">CONSULTAR NOTAS matricula</li>
-                    <li class="list-group-item">RELATORIO TURMA "Nome da Turma"</li>
-                    <li class="list-group-item">RELATORIO GERAL</li>
-                    <li class="list-group-item">SAIR</li>
-                </ul>
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">📋 Comandos Disponíveis</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group small">
+                            <li class="list-group-item">📝 <strong>CADASTRAR ESTUDANTE</strong> "Nome" matricula "Turma"</li>
+                            <li class="list-group-item">📊 <strong>ADICIONAR NOTAS</strong> matricula nota1 nota2 nota3</li>
+                            <li class="list-group-item">🔍 <strong>CONSULTAR NOTAS</strong> matricula</li>
+                            <li class="list-group-item">👥 <strong>LISTAR TODOS</strong></li>
+                            <li class="list-group-item">❌ <strong>REMOVER ESTUDANTE</strong> matricula</li>
+                            <li class="list-group-item">📈 <strong>PROMOVER TURMA</strong> "Turma Origem" "Turma Destino"</li>
+                            <li class="list-group-item">📊 <strong>ESTATISTICAS</strong></li>
+                            <li class="list-group-item">📋 <strong>RELATORIO TURMA</strong> "Nome da Turma"</li>
+                            <li class="list-group-item">📋 <strong>RELATORIO GERAL</strong></li>
+                            <li class="list-group-item">🚪 <strong>SAIR</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Botões de Exemplo -->
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">⚡ Exemplos Rápidos</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-outline-primary btn-exemplo w-100" onclick="insertExample('CADASTRAR ESTUDANTE \"Ana Silva\" 20230145 \"12º A\"')">Cadastrar Aluno</button>
+                        <button class="btn btn-outline-success btn-exemplo w-100" onclick="insertExample('ADICIONAR NOTAS 20230145 15 18 17')">Adicionar Notas</button>
+                        <button class="btn btn-outline-info btn-exemplo w-100" onclick="insertExample('LISTAR TODOS')">Listar Todos</button>
+                        <button class="btn btn-outline-warning btn-exemplo w-100" onclick="insertExample('ESTATISTICAS')">Ver Estatísticas</button>
+                        <button class="btn btn-outline-secondary btn-exemplo w-100" onclick="insertExample('RELATORIO GERAL')">Relatório Geral</button>
+                    </div>
+                </div>
             </div>
 
+            <!-- Coluna Direita: Console -->
             <div class="col-md-6">
-                <h5>Exemplo:</h5>
-                <pre class="bg-light p-3">CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"
-CONSULTAR NOTAS 20230145
-RELATORIO TURMA "12º A"</pre>
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">💻 Console de Comandos</h5>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="codigo" class="form-control" rows="10" placeholder="Digite seus comandos aqui..." style="font-family: 'Courier New', monospace;"></textarea>
+
+                        <div class="text-center mt-3">
+                            <button onclick="executarCodigo()" class="btn btn-success btn-lg px-5 btn-executar">
+                                ▶️ Executar Código
+                            </button>
+                            <button onclick="limparConsole()" class="btn btn-warning btn-lg px-5">
+                                🔄 Limpar
+                            </button>
+                        </div>
+
+                        <!-- Histórico de Comandos -->
+                        <div class="mt-3" id="historicoDiv" style="display:none;">
+                            <h6>📜 Histórico:</h6>
+                            <div id="historico" style="max-height: 150px; overflow-y: auto;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="mt-4">
-            <textarea id="codigo" class="form-control" rows="8" placeholder="Digite seus comandos aqui..."></textarea>
+        <!-- Saída do Terminal -->
+        <div class="terminal mt-4" id="output">
+            <span style="color:#888">Executar um comando para ver a saída aqui...</span>
         </div>
 
-        <div class="text-center mt-3">
-            <button onclick="executarCodigo()" class="btn btn-success btn-lg px-5 btn-executar">
-                ▶️ Executar Código
-            </button>
-        </div>
+        <!-- Tabela de Resultados (quando LISTAR TODOS ou RELATORIO) -->
+        <div id="tabelaDiv" style="display:none; margin-top: 2rem;"></div>
 
-        <div id="output" class="terminal mt-4"></div>
+        <!-- Estatísticas (quando ESTATISTICAS) -->
+        <div id="estatisticasDiv" style="display:none; margin-top: 2rem;"></div>
     </div>
 
     <script>
+        let historico = [];
+
+        // Carregar histórico do servidor
+        function carregarHistorico() {
+            fetch('/historico')
+                .then(res => res.json())
+                .then(data => {
+                    historico = data.historico;
+                    atualizarVistaHistorico();
+                })
+                .catch(err => console.log('Erro ao carregar histórico'));
+        }
+
+        function atualizarVistaHistorico() {
+            const historicoDiv = document.getElementById('historico');
+            if (historico.length === 0) {
+                document.getElementById('historicoDiv').style.display = 'none';
+                return;
+            }
+            document.getElementById('historicoDiv').style.display = 'block';
+            historicoDiv.innerHTML = historico.map((cmd, i) => 
+                `<div class="historico-item" onclick="insertExample('${cmd.replace(/'/g, "\\'")}')">${cmd}</div>`
+            ).join('');
+        }
+
+        function insertExample(text) {
+            document.getElementById('codigo').value = text;
+            document.getElementById('codigo').focus();
+        }
+
+        function limparConsole() {
+            document.getElementById('codigo').value = '';
+            document.getElementById('output').innerHTML = '<span style="color:#888">Console limpo...</span>';
+            document.getElementById('tabelaDiv').innerHTML = '';
+            document.getElementById('tabelaDiv').style.display = 'none';
+            document.getElementById('estatisticasDiv').innerHTML = '';
+            document.getElementById('estatisticasDiv').style.display = 'none';
+        }
+
         function executarCodigo() {
             const codigo = document.getElementById('codigo').value;
             const output = document.getElementById('output');
-            output.innerHTML = '<span style="color:yellow">Compilando e executando...</span>';
+            output.innerHTML = '<span style="color:yellow">⏳ Compilando e executando...</span>';
+            document.getElementById('tabelaDiv').style.display = 'none';
+            document.getElementById('estatisticasDiv').style.display = 'none';
 
             fetch('/executar', {
                 method: 'POST',
@@ -79,6 +253,7 @@ RELATORIO TURMA "12º A"</pre>
             })
                 .then(res => res.json())
                 .then(data => {
+                    carregarHistorico();
                     let html = '';
                     data.resultados.forEach(r => {
                         if (r.tipo === 'sucesso') {
@@ -86,13 +261,88 @@ RELATORIO TURMA "12º A"</pre>
                         } else {
                             html += `<span style="color:#ff4444">✗ ${r.mensagem}</span><br>`;
                         }
+
+                        // Renderizar tabela de alunos
+                        if (r.dados && r.dados.length > 0) {
+                            exibirTabelaAlunos(r.dados);
+                        }
+
+                        // Renderizar estatísticas
+                        if (r.estatisticas) {
+                            exibirEstatisticas(r.estatisticas);
+                        }
                     });
-                    output.innerHTML = html || 'Nenhum resultado.';
+                    output.innerHTML = html || '<span style="color:#888">Nenhum resultado.</span>';
                 })
                 .catch(err => {
-                    output.innerHTML = '<span style="color:red">Erro de conexão com o servidor.</span>';
+                    output.innerHTML = '<span style="color:#ff6666">Erro de conexão com o servidor.</span><br>' + err;
                 });
         }
+
+        function exibirTabelaAlunos(alunos) {
+            const tabelaDiv = document.getElementById('tabelaDiv');
+            let html = '<h5>👥 Tabela de Alunos</h5><div class="table-responsive tabela-resultado"><table class="table table-striped"><thead class="table-dark"><tr><th>Matrícula</th><th>Nome</th><th>Turma</th><th>Notas</th><th>Média</th></tr></thead><tbody>';
+            
+            alunos.forEach(aluno => {
+                const notas = aluno.notas || [];
+                const media = notas.length > 0 ? (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2) : 'N/A';
+                const notasStr = notas.length > 0 ? notas.join(', ') : 'Sem notas';
+                html += `<tr><td>${aluno.matricula}</td><td>${aluno.nome}</td><td><span class="badge bg-info">${aluno.turma}</span></td><td>${notasStr}</td><td><strong>${media}</strong></td></tr>`;
+            });
+            
+            html += '</tbody></table></div>';
+            tabelaDiv.innerHTML = html;
+            tabelaDiv.style.display = 'block';
+        }
+
+        function exibirEstatisticas(stats) {
+            const estDiv = document.getElementById('estatisticasDiv');
+            let html = '<h5>📊 Estatísticas Gerais</h5><div class="estatisticas"><div class="row">';
+            
+            html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.total_alunos}</div><div class="stat-label">Total de Alunos</div></div></div>`;
+            html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.total_turmas}</div><div class="stat-label">Total de Turmas</div></div></div>`;
+            html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.media_geral}</div><div class="stat-label">Média Geral</div></div></div>`;
+            html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.max_geral}</div><div class="stat-label">Maior Nota</div></div></div>`;
+            
+            html += '</div></div>';
+
+            // Estatísticas por turma
+            if (Object.keys(stats.por_turma).length > 0) {
+                html += '<h6 class="mt-3">📈 Por Turma:</h6><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Turma</th><th>Alunos</th><th>Média</th><th>Max</th><th>Min</th></tr></thead><tbody>';
+                Object.entries(stats.por_turma).forEach(([turma, dados]) => {
+                    html += `<tr><td><span class="badge bg-primary">${turma}</span></td><td>${dados.alunos}</td><td>${dados.media}</td><td>${dados.max}</td><td>${dados.min}</td></tr>`;
+                });
+                html += '</tbody></table></div>';
+            }
+
+            estDiv.innerHTML = html;
+            estDiv.style.display = 'block';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            body.classList.toggle('dark-mode');
+            btn.textContent = body.classList.contains('dark-mode') ? '☀️ Tema Claro' : '🌙 Tema Escuro';
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Restaurar tema salvo
+        window.addEventListener('load', () => {
+            const tema = localStorage.getItem('theme');
+            if (tema === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeBtn').textContent = '☀️ Tema Claro';
+            }
+            carregarHistorico();
+        });
+
+        // Atalho: Ctrl+Enter para executar
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                executarCodigo();
+            }
+        });
     </script>
 </body>
 

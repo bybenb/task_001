@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BravON - Compilador Escolar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --laranja: #FF6B35;
+            --laranja-escuro: #E55A2B;
+            --azul-escuro: #1A2A3A;
+            --azul-profundo: #0F1A24;
+            --branco: #FFFFFF;
+            --cinza-claro: #F5F5F5;
+            --cinza: #E0E0E0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-profundo) 100%);
+            min-height: 100vh;
+            padding: 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Container principal */
+        .glass-container {
+            background: var(--branco);
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(120deg, var(--azul-escuro) 0%, var(--azul-profundo) 100%);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--branco);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,107,53,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 i {
+            margin-right: 10px;
+            color: var(--laranja);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            animation: fadeInUp 0.8s ease;
+            color: var(--cinza-claro);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards de informação */
+        .info-card {
+            background: var(--branco);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(26, 42, 58, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--cinza);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(26, 42, 58, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--azul-escuro);
+            border-left: 4px solid var(--laranja);
+            padding-left: 10px;
+        }
+
+        .command-list {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .command-item {
+            background: var(--cinza-claro);
+            padding: 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-family: 'Courier New', monospace;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid var(--cinza);
+            color: var(--azul-escuro);
+        }
+
+        .command-item:hover {
+            background: var(--laranja);
+            color: var(--branco);
+            transform: translateX(5px);
+            border-color: var(--laranja);
+        }
+
+        .command-item i {
+            margin-right: 8px;
+            width: 20px;
+        }
+
+        /* Área de código */
+        .code-area {
+            background: var(--azul-profundo);
+            border-radius: 1rem;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .code-header {
+            background: var(--azul-escuro);
+            padding: 0.75rem 1rem;
+            color: var(--branco);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .code-header i {
+            color: var(--laranja);
+        }
+
+        textarea {
+            background: var(--azul-profundo) !important;
+            color: var(--branco) !important;
+            border: none !important;
+            font-family: 'Courier New', monospace !important;
+            font-size: 0.9rem !important;
+            line-height: 1.5 !important;
+            resize: vertical !important;
+            padding: 1rem !important;
+        }
+
+        textarea:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        textarea::placeholder {
+            color: rgba(255,255,255,0.5) !important;
+        }
+
+        /* Botão executar */
+        .btn-executar {
+            background: linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 3rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+            color: var(--branco);
+        }
+
+        .btn-executar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6);
+            background: linear-gradient(135deg, var(--laranja-escuro) 0%, var(--laranja) 100%);
+            color: var(--branco);
+        }
+
+        .btn-executar:active {
+            transform: scale(0.98);
+        }
+
+        /* Terminal moderno */
+        .terminal-modern {
+            background: var(--azul-profundo);
+            border-radius: 1rem;
+            padding: 0;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            border: 1px solid var(--azul-escuro);
+        }
+
+        .terminal-header {
+            background: var(--azul-escuro);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255,107,53,0.3);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: var(--laranja); }
+        .terminal-dot:nth-child(2) { background: #ffbd2e; }
+        .terminal-dot:nth-child(3) { background: #27c93f; }
+
+        .terminal-title {
+            color: var(--cinza);
+            font-size: 0.75rem;
+            margin-left: 8px;
+            flex: 1;
+        }
+
+        .terminal-content {
+            padding: 1rem;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--branco);
+            background: var(--azul-profundo);
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,107,53,0.3);
+            border-radius: 50%;
+            border-top-color: var(--laranja);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mensagens animadas */
+        .message {
+            animation: slideIn 0.3s ease;
+            margin-bottom: 8px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Botões secundários */
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--laranja);
+            color: var(--laranja);
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--laranja);
+            color: var(--branco);
+        }
+
+        /* Scrollbar personalizada */
+        .terminal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-content::-webkit-scrollbar-track {
+            background: var(--azul-escuro);
+            border-radius: 10px;
+        }
+
+        .terminal-content::-webkit-scrollbar-thumb {
+            background: var(--laranja);
+            border-radius: 10px;
+        }
+
+        .terminal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--laranja-escuro);
+        }
+
+        /* Responsividade total */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.85rem;
+            }
+            
+            .command-item {
+                font-size: 0.75rem;
+                padding: 0.6rem;
+            }
+            
+            .btn-executar {
+                width: 100%;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container px-0 px-md-2" style="max-width: 1400px;">
+        <div class="glass-container">
+            <!-- Header com identidade laranja-azul -->
+            <div class="hero">
+                <h1>
+                    <i class="fas fa-terminal"></i> BravON
+                </h1>
+                <p>Linguagem de Comandos Escolares — Execute e gerencie informações estudantis</p>
+            </div>
+
+            <div class="p-3 p-md-4">
+                <div class="row g-3">
+                    <!-- Coluna esquerda: comandos -->
+                    <div class="col-lg-5">
+                        <div class="info-card">
+                            <div class="card-title">
+                                <i class="fas fa-code-branch"></i> Comandos Disponíveis
+                            </div>
+                            <div class="command-list">
+                                <div class="command-item" onclick="inserirComando('CADASTRAR ESTUDANTE \"Nome\" matricula \"Turma\"')">
+                                    <i class="fas fa-user-plus"></i> CADASTRAR ESTUDANTE "Nome" matricula "Turma"
+                                </div>
+                                <div class="command-item" onclick="inserirComando('CONSULTAR NOTAS matricula')" >
+                                    <i class="fas fa-chart-line"></i> CONSULTAR NOTAS matricula
+                                </div>
+                                <div class="command-item" onclick="inserirComando('RELATORIO TURMA \"Nome da Turma\"')">
+                                    <i class="fas fa-users"></i> RELATORIO TURMA "Nome da Turma"
+                                </div>
+                                <div class="command-item" onclick="inserirComando('RELATORIO GERAL')">
+                                    <i class="fas fa-globe"></i> RELATORIO GERAL
+                                </div>
+                                <div class="command-item" onclick="inserirComando('SAIR')">
+                                    <i class="fas fa-sign-out-alt"></i> SAIR
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card mt-3">
+                            <div class="card-title">
+                                <i class="fas fa-lightbulb"></i> Exemplo Rápido
+                            </div>
+                            <pre style="background:var(--cinza-claro); padding: 0.75rem; border-radius: 1rem; font-size: 0.75rem; margin: 0; overflow-x: auto; color: var(--azul-escuro); border: 1px solid var(--cinza);">CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"
+CONSULTAR NOTAS 20230145
+RELATORIO TURMA "12º A"</pre>
+                            <button class="btn btn-sm w-100 mt-2" style="background: var(--laranja); color: var(--branco); border: none;" onclick="carregarExemplo()">
+                                <i class="fas fa-copy"></i> Usar este exemplo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Coluna direita: editor e execução -->
+                    <div class="col-lg-7">
+                        <div class="code-area">
+                            <div class="code-header">
+                                <div><i class="fas fa-edit"></i> Editor BravON</div>
+                                <small><i class="fas fa-mobile-alt"></i> </small>
+                            </div>
+                            <textarea id="codigo" rows="8" placeholder="Digite seus comandos aqui...&#10;Ex:&#10;CADASTRAR ESTUDANTE &quot;João Silva&quot; 2024001 &quot;9º B&quot;&#10;RELATORIO GERAL"></textarea>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <button onclick="executarCodigo()" class="btn btn-executar">
+                                <i class="fas fa-play"></i> Executar Código
+                            </button>
+                        </div>
+
+                        <!-- Terminal de saída -->
+                        <div class="terminal-modern">
+                            <div class="terminal-header">
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-title">terminal@bravon:~$</div>
+                                <i class="fas fa-expand-alt" style="cursor: pointer; font-size: 12px; color: var(--laranja);" onclick="limparTerminal()"></i>
+                            </div>
+                            <div id="output" class="terminal-content">
+                                <span style="color: var(--cinza);">> Aguardando comandos...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Banco de dados em memória
+        let estudantes = [
+            { nome: "Ana Maria", matricula: "20230145", turma: "12º A", notas: { "Português": 8.5, "Matemática": 7.0, "História": 9.0 } },
+            { nome: "Carlos Souza", matricula: "20230146", turma: "12º A", notas: { "Português": 6.0, "Matemática": 8.5, "História": 7.5 } },
+            { nome: "Fernanda Lima", matricula: "20230201", turma: "9º B", notas: { "Português": 9.0, "Matemática": 9.5, "Ciências": 8.0 } }
+        ];
+
+        function inserirComando(cmd) {
+            const textarea = document.getElementById('codigo');
+            const currentValue = textarea.value;
+            const newValue = currentValue ? currentValue + '\n' + cmd : cmd;
+            textarea.value = newValue;
+            textarea.focus();
+            
+            // Feedback visual
+            const item = event.currentTarget;
+            item.style.transform = 'scale(0.98)';
+            setTimeout(() => { item.style.transform = ''; }, 150);
+        }
+
+        function carregarExemplo() {
+            const exemplo = `CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"
+CONSULTAR NOTAS 20230145
+RELATORIO TURMA "12º A"`;
+            document.getElementById('codigo').value = exemplo;
+            showTemporaryMessage('📋 Exemplo carregado! Edite e execute.');
+        }
+
+        function showTemporaryMessage(msg) {
+            const output = document.getElementById('output');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message';
+            msgDiv.style.color = '#FFA500';
+            msgDiv.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`;
+            output.appendChild(msgDiv);
+            output.scrollTop = output.scrollHeight;
+            setTimeout(() => { msgDiv.remove(); }, 2000);
+        }
+
+        function limparTerminal() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<span style="color: var(--cinza);">> Terminal limpo.</span><br><span style="color: var(--cinza);">> Aguardando comandos...</span>';
+        }
+
+        function processarComandos(comandos) {
+            const linhas = comandos.split('\n');
+            const resultados = [];
+
+            for (let linha of linhas) {
+                linha = linha.trim();
+                if (linha === '' || linha.startsWith('//')) continue;
+
+                try {
+                    // CADASTRAR ESTUDANTE "Nome" matricula "Turma"
+                    let match = linha.match(/CADASTRAR\s+ESTUDANTE\s+"([^"]+)"\s+(\d+)\s+"([^"]+)"/i);
+                    if (match) {
+                        const nome = match[1];
+                        const matricula = match[2];
+                        const turma = match[3];
+                        
+                        const existe = estudantes.find(e => e.matricula === matricula);
+                        if (existe) {
+                            resultados.push({ tipo: 'erro', mensagem: `Matrícula ${matricula} já cadastrada.` });
+                        } else {
+                            estudantes.push({ nome, matricula, turma, notas: {} });
+                            resultados.push({ tipo: 'sucesso', mensagem: `Estudante ${nome} (${matricula}) cadastrado na turma ${turma}.` });
+                        }
+                        continue;
+                    }
+
+                    // CONSULTAR NOTAS matricula
+                    match = linha.match(/CONSULTAR\s+NOTAS\s+(\d+)/i);
+                    if (match) {
+                        const matricula = match[1];
+                        const estudante = estudantes.find(e => e.matricula === matricula);
+                        if (!estudante) {
+                            resultados.push({ tipo: 'erro', mensagem: `Matrícula ${matricula} não encontrada.` });
+                        } else {
+                            let notasStr = '';
+                            if (Object.keys(estudante.notas).length === 0) {
+                                notasStr = 'Nenhuma nota lançada.';
+                            } else {
+                                notasStr = Object.entries(estudante.notas).map(([disc, nota]) => `${disc}: ${nota}`).join(' | ');
+                            }
+                            resultados.push({ tipo: 'sucesso', mensagem: `📊 Notas de ${estudante.nome} (${matricula}): ${notasStr}` });
+                        }
+                        continue;
+                    }
+
+                    // RELATORIO TURMA "Nome da Turma"
+                    match = linha.match(/RELATORIO\s+TURMA\s+"([^"]+)"/i);
+                    if (match) {
+                        const turma = match[1];
+                        const alunosTurma = estudantes.filter(e => e.turma === turma);
+                        if (alunosTurma.length === 0) {
+                            resultados.push({ tipo: 'erro', mensagem: `Nenhum estudante na turma "${turma}".` });
+                        } else {
+                            let relatorio = `📚 Turma "${turma}": ${alunosTurma.length} aluno(s)\n`;
+                            alunosTurma.forEach(a => {
+                                relatorio += `   • ${a.nome} (${a.matricula})\n`;
+                            });
+                            resultados.push({ tipo: 'sucesso', mensagem: relatorio });
+                        }
+                        continue;
+                    }
+
+                    // RELATORIO GERAL
+                    if (linha.match(/RELATORIO\s+GERAL/i)) {
+                        if (estudantes.length === 0) {
+                            resultados.push({ tipo: 'erro', mensagem: 'Nenhum estudante cadastrado.' });
+                        } else {
+                            let relatorio = `🏫 RELATÓRIO GERAL - Total: ${estudantes.length} estudantes\n`;
+                            estudantes.forEach(e => {
+                                relatorio += `   • ${e.nome} (${e.matricula}) - Turma ${e.turma}\n`;
+                            });
+                            resultados.push({ tipo: 'sucesso', mensagem: relatorio });
+                        }
+                        continue;
+                    }
+
+                    // SAIR
+                    if (linha.match(/SAIR/i)) {
+                        resultados.push({ tipo: 'sucesso', mensagem: '👋 Encerrando sessão... Obrigado por usar BravON!' });
+                        continue;
+                    }
+
+                    resultados.push({ tipo: 'erro', mensagem: `Comando inválido: "${linha}"` });
+                } catch (error) {
+                    resultados.push({ tipo: 'erro', mensagem: `Erro ao processar: ${linha}` });
+                }
+            }
+            return resultados;
+        }
+
+        function executarCodigo() {
+            const codigo = document.getElementById('codigo').value;
+            const output = document.getElementById('output');
+            
+            if (!codigo.trim()) {
+                output.innerHTML = '<span style="color: #FFA500;">⚠️ Digite algum comando antes de executar.</span>';
+                return;
+            }
+
+            output.innerHTML = '<div style="display: flex; align-items: center; gap: 10px;"><div class="loading"></div> <span style="color: var(--laranja);">Processando comandos...</span></div>';
+            
+            setTimeout(() => {
+                const resultados = processarComandos(codigo);
+                
+                let html = '';
+                resultados.forEach(r => {
+                    if (r.tipo === 'sucesso') {
+                        html += `<div class="message" style="color: #FFA500; border-left: 3px solid #FF6B35; padding-left: 8px;">✓ ${r.mensagem.replace(/\n/g, '<br>')}</div>`;
+                    } else {
+                        html += `<div class="message" style="color: #FF8C69; border-left: 3px solid #FF6B35; padding-left: 8px;">✗ ${r.mensagem}</div>`;
+                    }
+                });
+                
+                if (html === '') html = '<span style="color: var(--cinza);">Nenhum comando válido encontrado.</span>';
+                
+                output.innerHTML = html;
+                output.scrollTop = output.scrollHeight;
+            }, 300);
+        }
+
+        // Atalho Ctrl+Enter
+        document.getElementById('codigo').addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                executarCodigo();
+            }
+        });
+    </script>
+</body>
+
+</html>
