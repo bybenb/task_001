@@ -422,7 +422,7 @@
                             <div class="card-title">
                                 <i class="fas fa-lightbulb"></i> Exemplo Rápido
                             </div>
-                            <pre style="background:var(--cinza-claro); padding: 0.75rem; border-radius: 1rem; font-size: 0.75rem; margin: 0; overflow-x: auto; color: var(--azul-escuro); border: 1px solid var(--cinza);">CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"
+                            <pre style="background:var(--cinza-claro); padding: 0.75rem; border-radius: 1rem; font-size: 0.75rem; margin: 0; overflow-x: auto; color: var(--azul-escuro); border: 1px solid var(--cinza);">CADASTRAR ESTUDANTE "Nelma Bravo" 20230145 "12º A"
 CONSULTAR NOTAS 20230145
 RELATORIO TURMA "12º A"</pre>
                             <button class="btn btn-sm w-100 mt-2" style="background: var(--laranja); color: var(--branco); border: none;" onclick="carregarExemplo()">
@@ -469,9 +469,9 @@ RELATORIO TURMA "12º A"</pre>
     <script>
         // Banco de dados em memória
         let estudantes = [
-            { nome: "Ana Maria", matricula: "20230145", turma: "12º A", notas: { "Português": 8.5, "Matemática": 7.0, "História": 9.0 } },
-            { nome: "Carlos Souza", matricula: "20230146", turma: "12º A", notas: { "Português": 6.0, "Matemática": 8.5, "História": 7.5 } },
-            { nome: "Fernanda Lima", matricula: "20230201", turma: "9º B", notas: { "Português": 9.0, "Matemática": 9.5, "Ciências": 8.0 } }
+            { nome: "Nelma Bravo", matricula: "20230145", turma: "12º A", notas: { "Português": 8.5, "Matemática": 7.0, "História": 9.0 } },
+            { nome: "Aldo Bruno", matricula: "20230146", turma: "12º A", notas: { "Português": 6.0, "Matemática": 8.5, "História": 7.5 } },
+            { nome: "Fernanda Sonhe", matricula: "20230201", turma: "9º B", notas: { "Português": 9.0, "Matemática": 9.5, "Ciências": 8.0 } }
         ];
 
         function inserirComando(cmd) {
@@ -488,7 +488,7 @@ RELATORIO TURMA "12º A"</pre>
         }
 
         function carregarExemplo() {
-            const exemplo = `CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"
+            const exemplo = `CADASTRAR ESTUDANTE "Nelma Bravo" 20230145 "12º A"
 CONSULTAR NOTAS 20230145
 RELATORIO TURMA "12º A"`;
             document.getElementById('codigo').value = exemplo;
@@ -578,7 +578,7 @@ RELATORIO TURMA "12º A"`;
                         if (estudantes.length === 0) {
                             resultados.push({ tipo: 'erro', mensagem: 'Nenhum estudante cadastrado.' });
                         } else {
-                            let relatorio = `🏫 RELATÓRIO GERAL - Total: ${estudantes.length} estudantes\n`;
+                            let relatorio = `RELATÓRIO GERAL - Total: ${estudantes.length} estudantes\n`;
                             estudantes.forEach(e => {
                                 relatorio += `   • ${e.nome} (${e.matricula}) - Turma ${e.turma}\n`;
                             });

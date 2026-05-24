@@ -48,7 +48,7 @@ class TestCommands(unittest.TestCase):
     def test_adicionar_notas(self):
         """Teste: Adicionar notas a um estudante"""
         # Primeiro cadastrar
-        codigo1 = 'CADASTRAR ESTUDANTE "Ana Maria" 20230145 "12º A"'
+        codigo1 = 'CADASTRAR ESTUDANTE "Nelma Bravo" 20230145 "12º A"'
         ast1 = self.tokenize_and_parse(codigo1)
         self.interpreter.executar(ast1)
         

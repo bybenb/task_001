@@ -14,6 +14,14 @@ def index():
     return render_template('index.html')
 
 
+
+@app.route('/v2')
+def index_v2():
+    return render_template('indeexa.html')
+
+
+
+
 @app.route('/executar', methods=['POST'])
 def executar():
     codigo = request.json.get('codigo', '')

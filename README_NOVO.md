@@ -1,21 +1,21 @@
-# 🎓 BravON - Compilador de Linguagem Escolar
+# BravON - Compilador de Linguagem Escolar
 
 Um compilador educacional completo para gerenciar dados escolares com análise léxica, sintática e interpretação.
 
-## ✨ Funcionalidades Implementadas
+## Funcionalidades Implementadas
 
-✅ Análise Léxica (Lexer)  
-✅ Análise Sintática (Parser com AST)  
-✅ Interpretação e Execução  
-✅ Persistência em JSON  
-✅ Interface Web responsiva  
-✅ Tema claro/escuro  
-✅ Histórico de comandos  
-✅ Botões de exemplo  
-✅ Validação completa  
-✅ Testes unitários  
+Análise Léxica (Lexer)  
+Análise Sintática (Parser com AST)  
+Interpretação e Execução  
+Persistência em JSON  
+Interface Web responsiva  
+Tema claro/escuro  
+Histórico de comandos  
+Botões de exemplo  
+Validação completa  
+Testes unitários  
 
-## 📋 Comandos Suportados
+## Comandos Suportados
 
 ```
 CADASTRAR ESTUDANTE "Nome" matricula "Turma"
@@ -30,15 +30,14 @@ RELATORIO GERAL
 SAIR
 ```
 
-## 🚀 Instalação e Execução
+##  Instalação e Execução
 
 ```bash
-# Instalar
-python -m venv venv
-venv\Scripts\activate
+
+python -m venv dep
+dep\Scripts\activate
 pip install -r requirements.txt
 
-# Executar
 python app.py
 
 # Acessar em: http://localhost:5000
@@ -47,7 +46,7 @@ python app.py
 python -m unittest test_commands.py -v
 ```
 
-## 📖 Exemplos
+## Exemplos
 
 ```
 CADASTRAR ESTUDANTE "João Silva" 20230145 "12º A"
@@ -56,7 +55,7 @@ LISTAR TODOS
 ESTATISTICAS
 ```
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 - `lexer.py` - Análise léxica
 - `parser.py` - Análise sintática  
@@ -66,7 +65,7 @@ ESTATISTICAS
 - `templates/index.html` - Interface
 - `data/estudantes.json` - Dados
 
-## ✅ Validações
+## Validações
 
 - Matrícula única
 - Notas 0-20
@@ -74,6 +73,8 @@ ESTATISTICAS
 - Turma válida
 - Erro handling
 
-## 👤 Autor
+## Autor e Créditos
 
-[@bkapa8](https://www.instagram.com/bkapa8)
+- [@bkapa8](https://www.instagram.com/bkapa8)
+- [@nelma_bravo3](https://www.instagram.com/nelma_bravo3)
+

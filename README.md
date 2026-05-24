@@ -3,9 +3,11 @@
 
 
 Compilador web para uma linguagem simples de gestão escolar, desenvolvido em Python com Flask para a disciplina de ***Compiladores***. Ainda não batizei-a, ainda estou pensando num nome daóra :) ... 
-.
 
-## Funcionalidades Implementadas
+
+## Parte Técnica (blabla blá)
+
+### Funcionalidades Implementadas
 - **Análise Léxica** (Lexer)
 - **Análise Sintática** (Parser)
 - **Interpretação e Execução**
@@ -13,7 +15,7 @@ Compilador web para uma linguagem simples de gestão escolar, desenvolvido em Py
 - **Interface Web responsiva**
 - **Tratamento de erros** léxicos e sintáticos
 
-## Comandos Suportados
+### Comandos Suportados
 
 ```text
 CADASTRAR ESTUDANTE "Nome Completo" numero_matricula "Turma"
