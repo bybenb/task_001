@@ -141,6 +141,20 @@ class Interpreter:
             self.save_data()
             return {"sucesso": True, "mensagem": f"{len(alunos_promovidos)} aluno(s) promovido(s) de {turma_origem} para {turma_destino}.", "alunos": alunos_promovidos}
 
+        elif cmd["tipo"] == "PROMOVER_ESTUDANTE":
+            matricula = cmd.get("matricula")
+            turma_destino = cmd.get("turma_destino")
+            
+            estudante = next((est for est in self.estudantes if est["matricula"] == matricula), None)
+            if not estudante:
+                return {"sucesso": False, "mensagem": f"Estudante com matrícula {matricula} não encontrado."}
+            
+            turma_origem = estudante["turma"]
+            estudante["turma"] = turma_destino
+            
+            self.save_data()
+            return {"sucesso": True, "mensagem": f"Estudante {estudante['nome']} promovido de {turma_origem} para {turma_destino}.", "alunos": [estudante]}
+
         elif cmd["tipo"] == "ESTATISTICAS":
             if not self.estudantes:
                 return {"sucesso": True, "mensagem": "Nenhum estudante cadastrado.", "estatisticas": {}}

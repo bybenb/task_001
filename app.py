@@ -20,6 +20,11 @@ def index_v2():
     return render_template('indeexa.html')
 
 
+@app.route('/ui')
+def index_ui():
+    return render_template('indeexa_v2.html')
+
+
 
 
 @app.route('/executar', methods=['POST'])
