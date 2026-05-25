@@ -10,9 +10,13 @@ command_history = []  # Armazenar histórico de comandos
 
 
 @app.route('/')
+def home():
+    return render_template('home.html')
+
+
+@app.route('/index')
 def index():
     return render_template('index.html')
-
 
 
 @app.route('/v2')
@@ -20,9 +24,29 @@ def index_v2():
     return render_template('indeexa.html')
 
 
+@app.route('/editor')
+def editor():
+    return render_template('indeexa_v2.html')
+
+
 @app.route('/ui')
 def index_ui():
     return render_template('indeexa_v2.html')
+
+
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/help')
+def help_page():
+    return render_template('help.html')
 
 
 
