@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF6B35">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Manual Completo BravON - Guia de uso da linguagem educacional. Aprenda todos os comandos, sintaxe e boas práticas.">
+    <meta name="keywords" content="BravON, manual, ajuda, tutorial, comandos, guia">
+    <meta name="author" content="UNITIC">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Manual BravON - Help & Documentation">
+    <meta property="og:description" content="Documentação completa da linguagem educacional BravON">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    
+    <title>Manual & Help - BravON</title>
+    
+    <style>
+        :root {
+            --laranja: #FF6B35;
+            --azul-escuro: #1A2A3A;
+            --branco: #F5F5F5;
+            --cinza: #E0E0E0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, #2A4A5A 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .navbar-custom {
+            background: var(--azul-escuro);
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.1);
+            border-bottom: 3px solid var(--laranja);
+        }
+        
+        .navbar-brand img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .navbar-brand span {
+            font-weight: 700;
+            color: var(--laranja);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: color 0.3s ease;
+            margin-left: 1rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--laranja) !important;
+        }
+        
+        .nav-link.active {
+            color: var(--laranja) !important;
+            font-weight: 600;
+        }
+        
+        .container-main {
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+        
+        .sidebar h5 {
+            color: var(--azul-escuro);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sidebar h5 i {
+            color: var(--laranja);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar a {
+            color: #666;
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            display: block;
+            border-left: 3px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .sidebar a:hover {
+            background: var(--branco);
+            color: var(--laranja);
+            border-left-color: var(--laranja);
+            padding-left: 1.2rem;
+        }
+        
+        .sidebar a.active {
+            color: var(--laranja);
+            background: linear-gradient(90deg, rgba(255, 107, 53, 0.1), transparent);
+            border-left-color: var(--laranja);
+            font-weight: 600;
+            padding-left: 1.2rem;
+        }
+        
+        .content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content h2 {
+            color: var(--azul-escuro);
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--laranja);
+        }
+        
+        .content h2:first-child {
+            margin-top: 0;
+        }
+        
+        .content h3 {
+            color: var(--azul-escuro);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .content code {
+            background: #f5f5f5;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--laranja);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .content pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid var(--laranja);
+        }
+        
+        .content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .table-responsive {
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        table {
+            margin-bottom: 0;
+        }
+        
+        table thead {
+            background: linear-gradient(135deg, var(--laranja), #E85A2C);
+            color: white;
+        }
+        
+        table tbody tr:hover {
+            background: var(--branco);
+        }
+        
+        table td {
+            padding: 0.8rem;
+            vertical-align: middle;
+        }
+        
+        .alert-custom {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(26, 42, 58, 0.05));
+            border-left: 4px solid var(--laranja);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        .alert-custom i {
+            color: var(--laranja);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .badge-custom {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--laranja), #E85A2C);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--laranja);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+        
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+        }
+        
+        footer {
+            background: var(--azul-escuro);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--laranja);
+            margin-top: auto;
+        }
+        
+        footer a {
+            color: var(--laranja);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .sidebar {
+                position: static;
+                margin-bottom: 2rem;
+                max-height: none;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-nav {
+                margin-top: 1rem;
+            }
+            
+            .nav-link {
+                margin-left: 0;
+                margin-bottom: 0.5rem;
+            }
+            
+            .scroll-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-custom navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/static/logo.png" alt="BravON Logo">
+                <span>BravON</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/editor">Editor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/help">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- MAIN CONTENT -->
+    <div class="container container-main flex-grow-1">
+        <div class="row">
+            <!-- SIDEBAR (TOC) -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <h5><i class="fas fa-list"></i> Conteúdo</h5>
+                    <ul>
+                        <li><a href="#intro" class="toc-link active">Introdução</a></li>
+                        <li><a href="#primeiros-passos" class="toc-link">Primeiros Passos</a></li>
+                        <li><a href="#comandos-basicos" class="toc-link">Comandos Básicos</a></li>
+                        <li><a href="#comandos-avancados" class="toc-link">Comandos Avançados</a></li>
+                        <li><a href="#exemplos" class="toc-link">Exemplos Práticos</a></li>
+                        <li><a href="#referencia" class="toc-link">Referência Rápida</a></li>
+                        <li><a href="#faq" class="toc-link">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- CONTENT -->
+            <div class="col-lg-9">
+                <div class="content">
+                    <h2 id="intro"><i class="fas fa-book"></i> Manual Completo BravON</h2>
+                    
+                    <p>
+                        <strong>BravON</strong> é uma linguagem de programação educacional projetada para gerenciamento de turmas e estudantes. Oferece uma sintaxe simples em português e um conjunto de comandos poderosos para operações académicas comuns.
+                    </p>
+                    
+                    <div class="alert-custom">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Dica:</strong> Use o menu à esquerda para navegar pelos tópicos. Clique em qualquer comando para aprender mais.
+                    </div>
+                    
+                    <!-- PRIMEIROS PASSOS -->
+                    <h2 id="primeiros-passos"><i class="fas fa-rocket"></i> Primeiros Passos</h2>
+                    
+                    <h3>1. Acessar o Editor</h3>
+                    <p>Clique no botão <strong>"Editor"</strong> no menu para aceder ao editor de código BravON. Verá:</p>
+                    <ul>
+                        <li><strong>Área de Código</strong> (lado esquerdo) - Digite seus comandos</li>
+                        <li><strong>Botões de Atalho</strong> - 10 comandos comuns pré-configurados</li>
+                        <li><strong>Terminal</strong> (lado direito) - Resultados e mensagens</li>
+                    </ul>
+                    
+                    <h3>2. Executar Código</h3>
+                    <p>Após digitar um comando, pressione <span class="badge-custom"><kbd>Ctrl+Enter</kbd></span> ou clique no botão "Executar".</p>
+                    
+                    <h3>3. Primeiro Programa</h3>
+                    <pre><code>CADASTRAR 101 "João Silva" "10º A"
+CONSULTAR 101
+LISTAR</code></pre>
+                    
+                    <!-- COMANDOS BÁSICOS -->
+                    <h2 id="comandos-basicos"><i class="fas fa-cube"></i> Comandos Básicos</h2>
+                    
+                    <h3>CADASTRAR</h3>
+                    <p><strong>Propósito:</strong> Adicionar um novo estudante</p>
+                    <p><strong>Sintaxe:</strong></p>
+                    <pre><code>CADASTRAR &lt;matrícula&gt; "&lt;nome&gt;" "&lt;turma&gt;"</code></pre>
+                    <p><strong>Exemplo:</strong></p>
+                    <pre><code>CADASTRAR 101 "João Silva" "10º A"
+CADASTRAR 102 "Maria Santos" "10º A"</code></pre>
+                    
+                    <h3>REMOVER</h3>
+                    <p><strong>Propósito:</strong> Deletar um estudante</p>
+                    <pre><code>REMOVER 101</code></pre>
+                    
+                    <h3>CONSULTAR</h3>
+                    <p><strong>Propósito:</strong> Ver informações de um estudante</p>
+                    <pre><code>CONSULTAR 101</code></pre>
+                    
+                    <h3>LISTAR</h3>
+                    <p><strong>Propósito:</strong> Ver todos os estudantes ou de uma turma específica</p>
+                    <pre><code>LISTAR
+LISTAR "10º A"</code></pre>
+                    
+                    <h3>ADICIONAR_NOTAS</h3>
+                    <p><strong>Propósito:</strong> Registrar notas para um estudante</p>
+                    <pre><code>ADICIONAR_NOTAS 101 8.5 9.0 7.5</code></pre>
+                    
+                    <div class="alert-custom">
+                        <i class="fas fa-warning"></i>
+                        <strong>Validação:</strong> Notas devem estar entre 0 e 20
+                    </div>
+                    
+                    <!-- COMANDOS AVANÇADOS -->
+                    <h2 id="comandos-avancados"><i class="fas fa-star"></i> Comandos Avançados</h2>
+                    
+                    <h3>PROMOVER TURMA</h3>
+                    <p><strong>Propósito:</strong> Mover todos os estudantes de uma turma para outra</p>
+                    <pre><code>PROMOVER TURMA "10º A" "11º A"</code></pre>
+                    
+                    <h3>PROMOVER ESTUDANTE <span class="badge-custom">NOVO</span></h3>
+                    <p><strong>Propósito:</strong> Mover um estudante específico para outra turma</p>
+                    <pre><code>PROMOVER ESTUDANTE 101 "11º A"</code></pre>
+                    
+                    <h3>RELATORIO</h3>
+                    <p><strong>Propósito:</strong> Gerar relatório com estatísticas</p>
+                    <pre><code>RELATORIO
+RELATORIO "10º A"</code></pre>
+                    
+                    <h3>LIMPEZA</h3>
+                    <p><strong>Propósito:</strong> Limpar todos os dados (IRREVERSÍVEL)</p>
+                    <pre><code>LIMPEZA</code></pre>
+                    
+                    <div class="alert-custom">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>CUIDADO:</strong> Esta operação não pode ser desfeita!
+                    </div>
+                    
+                    <!-- EXEMPLOS PRÁTICOS -->
+                    <h2 id="exemplos"><i class="fas fa-code"></i> Exemplos Práticos</h2>
+                    
+                    <h3>Exemplo 1: Criar uma Turma Completa</h3>
+                    <pre><code>CADASTRAR 101 "João Silva" "10º A"
+CADASTRAR 102 "Maria Santos" "10º A"
+CADASTRAR 103 "Pedro Oliveira" "10º A"
+ADICIONAR_NOTAS 101 9.5 8.0 9.0
+ADICIONAR_NOTAS 102 8.0 8.5 7.5
+LISTAR "10º A"
+RELATORIO "10º A"</code></pre>
+                    
+                    <h3>Exemplo 2: Promover Estudantes</h3>
+                    <pre><code>PROMOVER TURMA "10º A" "11º A"
+PROMOVER ESTUDANTE 105 "11º B"
+RELATORIO</code></pre>
+                    
+                    <!-- REFERÊNCIA RÁPIDA -->
+                    <h2 id="referencia"><i class="fas fa-list"></i> Referência Rápida</h2>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Comando</th>
+                                    <th>Descrição</th>
+                                    <th>Exemplo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>CADASTRAR</code></td>
+                                    <td>Adicionar estudante</td>
+                                    <td><code>CADASTRAR 101 "Nome" "Turma"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>REMOVER</code></td>
+                                    <td>Deletar estudante</td>
+                                    <td><code>REMOVER 101</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>CONSULTAR</code></td>
+                                    <td>Ver detalhes</td>
+                                    <td><code>CONSULTAR 101</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>LISTAR</code></td>
+                                    <td>Listar todos</td>
+                                    <td><code>LISTAR "10º A"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>ADICIONAR_NOTAS</code></td>
+                                    <td>Registrar notas</td>
+                                    <td><code>ADICIONAR_NOTAS 101 9.5 8.0</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>PROMOVER TURMA</code></td>
+                                    <td>Mover turma</td>
+                                    <td><code>PROMOVER TURMA "10º A" "11º A"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>PROMOVER ESTUDANTE</code></td>
+                                    <td>Mover estudante</td>
+                                    <td><code>PROMOVER ESTUDANTE 101 "11º B"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>RELATORIO</code></td>
+                                    <td>Gerar relatório</td>
+                                    <td><code>RELATORIO "10º A"</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>LIMPEZA</code></td>
+                                    <td>Limpar dados</td>
+                                    <td><code>LIMPEZA</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- FAQ -->
+                    <h2 id="faq"><i class="fas fa-question-circle"></i> FAQ & Troubleshooting</h2>
+                    
+                    <h3>❓ O que significa "Sintaxe inválida"?</h3>
+                    <p><strong>R:</strong> Verifique se os comandos estão corretos, strings entre aspas e números sem aspas.</p>
+                    
+                    <h3>❓ Os dados são salvos automaticamente?</h3>
+                    <p><strong>R:</strong> Sim! Todo comando que modifica dados salva automaticamente em JSON.</p>
+                    
+                    <h3>❓ Posso desfazer uma operação?</h3>
+                    <p><strong>R:</strong> Não há undo integrado. Recomenda-se fazer backups periodicamente.</p>
+                    
+                    <h3>❓ Qual é a matrícula máxima?</h3>
+                    <p><strong>R:</strong> Qualquer número inteiro positivo até 2.147.483.647.</p>
+                    
+                    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--cinza); text-align: center; color: #999;">
+                        <p><strong>Precisa de mais ajuda?</strong> Contacte suporte@bravon.edu ou visite nosso GitHub.</p>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">Versão 1.0.0 | Última atualização: Maio 2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SCROLL TO TOP -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer style="margin-top: auto;">
+        <p>&copy; 2026 BravON. Todos os direitos reservados.</p>
+        <p><strong style="color: var(--laranja);">🚀 Powered by UNITIC</strong></p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <script>
+        // Highlight code blocks
+        hljs.highlightAll();
+        
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Active TOC link
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const sections = document.querySelectorAll('[id^="intro"], [id^="primeiros"], [id^="comandos"], [id^="exemplos"], [id^="referencia"], [id^="faq"]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scrolling for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
