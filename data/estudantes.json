@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "nome": "João Silva",
+    "matricula": 20230145,
+    "turma": "12º A",
+    "notas": []
+  },
+  {
+    "nome": "João Silva",
+    "matricula": 2023014,
+    "turma": "12º A",
+    "notas": []
+  },
+  {
+    "nome": "João Silva",
+    "matricula": 202301,
+    "turma": "12º A",
+    "notas": []
+  },
+  {
+    "nome": "João Silva",
+    "matricula": 20230,
+    "turma": "12º A",
+    "notas": []
+  },
+  {
+    "nome": "João Silva",
+    "matricula": 2023,
+    "turma": "12º A",
+    "notas": []
+  },
+  {
+    "nome": "João Silva",
+    "matricula": 20238,
+    "turma": "12º A",
+    "notas": []
+  },
+  {
+    "nome": "João Silva",
+    "matricula": 2023811,
+    "turma": "12º A",
+    "notas": []
+  }
+]
