@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <meta name="theme-color" content="#FF6B35">
+
+
+        <!-- SEO Meta Tags -->
+        <meta name="description" 
+            content="Editor  BravON - Editor  de uso exclusivo da linguagem BravON. Pratique  todos os comandos, sintaxe e boas práticas.">
+        <meta name="keywords" content="BravON, editor, console, terminal, comandos, código-fonte, algoritmo">
+        <meta name="author" content="UNITIC">
+        <meta name="robots" content="index, follow">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="Editor BravON - Console & Terminal">
+        <meta property="og:description" content="Editor completo da linguagem  BravON">
+        <meta property="og:type" content="website">
+        <title>Editor | BravON - Compilador Escolar</title>
+
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg" href="/static/logo.svg">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --laranja: #FF6B35;
+                --laranja-escuro: #E55A2B;
+                --azul-escuro: #1A2A3A;
+                --azul-profundo: #0F1A24;
+                --branco: #FFFFFF;
+                --cinza-claro: #F5F5F5;
+                --cinza: #E0E0E0;
+                --verde: #00D084;
+                --vermelho: #FF5C7C;
+            }
+
+            body {
+                background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-profundo) 100%);
+                min-height: 100vh;
+                padding: 1rem;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            /* Container principal */
+            .glass-container {
+                background: var(--branco);
+                border-radius: 2rem;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+
+            /* Header */
+            .hero {
+                background: linear-gradient(120deg, var(--azul-escuro) 0%, var(--azul-profundo) 100%);
+                padding: 2rem 1.5rem;
+                text-align: center;
+                color: var(--branco);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 1px, transparent 1px);
+                background-size: 40px 40px;
+                animation: moveBackground 20s linear infinite;
+            }
+
+            @keyframes moveBackground {
+                0% {
+                    transform: translate(0, 0);
+                }
+
+                100% {
+                    transform: translate(40px, 40px);
+                }
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                font-weight: 800;
+                letter-spacing: -0.5px;
+                animation: fadeInDown 0.8s ease;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero h1 i {
+                margin-right: 10px;
+                color: var(--laranja);
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.1);
+                }
+            }
+
+            .hero p {
+                font-size: 1rem;
+                opacity: 0.9;
+                margin-top: 0.5rem;
+                animation: fadeInUp 0.8s ease;
+                color: var(--cinza-claro);
+                position: relative;
+                z-index: 1;
+            }
+
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-30px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Cards de informação */
+            .info-card {
+                background: var(--branco);
+                border-radius: 1.5rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 5px 15px rgba(26, 42, 58, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border: 1px solid var(--cinza);
+            }
+
+            .info-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(26, 42, 58, 0.15);
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                color: var(--azul-escuro);
+                border-left: 4px solid var(--laranja);
+                padding-left: 10px;
+            }
+
+            .command-list {
+                display: grid;
+                gap: 0.5rem;
+            }
+
+            .command-item {
+                background: var(--cinza-claro);
+                padding: 0.75rem;
+                border-radius: 1rem;
+                font-size: 0.85rem;
+                font-family: 'Courier New', monospace;
+                transition: all 0.2s;
+                cursor: pointer;
+                border: 1px solid var(--cinza);
+                color: var(--azul-escuro);
+            }
+
+            .command-item:hover {
+                background: var(--laranja);
+                color: var(--branco);
+                transform: translateX(5px);
+                border-color: var(--laranja);
+            }
+
+            .command-item i {
+                margin-right: 8px;
+                width: 20px;
+            }
+
+            /* Área de código */
+            .code-area {
+                background: var(--azul-profundo);
+                border-radius: 1rem;
+                padding: 0;
+                overflow: hidden;
+                transition: all 0.3s;
+            }
+
+            .code-header {
+                background: var(--azul-escuro);
+                padding: 0.75rem 1rem;
+                color: var(--branco);
+                font-size: 0.85rem;
+                font-weight: 600;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .code-header i {
+                color: var(--laranja);
+            }
+            
+            i.fa-mobile-alt { display: none; }
+
+            textarea {
+                background: var(--azul-profundo) !important;
+                color: var(--branco) !important;
+                border: none !important;
+                font-family: 'Courier New', monospace;
+                font-size: 0.95rem;
+                padding: 1rem;
+                resize: both;
+                min-height: 240px;
+                min-width: 770px;
+            }
+
+            textarea::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            textarea:focus {
+                outline: none;
+                box-shadow: inset 0 0 10px rgba(255, 107, 53, 0.2);
+            }
+
+            /* Botões */
+            .btn-executar {
+                background: linear-gradient(120deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+                color: var(--branco);
+                border: none;
+                padding: 0.8rem 2rem;
+                border-radius: 1rem;
+                font-weight: 600;
+                transition: all 0.3s;
+                cursor: pointer;
+                font-size: 0.95rem;
+            }
+
+            .btn-executar:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+                color: var(--branco);
+            }
+
+            .btn-executar:active {
+                transform: translateY(0);
+            }
+
+            /* Terminal */
+            .terminal-modern {
+                background: var(--azul-profundo);
+                border-radius: 1rem;
+                margin-top: 1.5rem;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .terminal-header {
+                background: var(--azul-escuro);
+                padding: 0.75rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+            }
+
+            .terminal-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.4);
+            }
+
+            .terminal-dot:nth-child(1) {
+                background: #FF5F56;
+            }
+
+            .terminal-dot:nth-child(2) {
+                background: #FFBD2E;
+            }
+
+            .terminal-dot:nth-child(3) {
+                background: #27C93F;
+            }
+
+            .terminal-title {
+                color: var(--cinza-claro);
+                font-size: 0.75rem;
+                font-family: 'Courier New', monospace;
+                margin-left: auto;
+                margin-right: auto;
+                position: absolute;
+                left: 70%;
+                transform: translateX(-50%);
+            }
+
+            .terminal-content {
+                padding: 1rem;
+                min-height: 150px;
+                max-height: 400px;
+                overflow-y: auto;
+                color: var(--cinza-claro);
+                font-family: 'Courier New', monospace;
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+
+            .loading {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                border: 2px solid rgba(255, 107, 53, 0.3);
+                border-top-color: var(--laranja);
+                border-radius: 50%;
+                animation: spin 0.6s linear infinite;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Mensagens animadas */
+            .message {
+                animation: slideIn 0.3s ease;
+                margin-bottom: 8px;
+                padding: 8px 10px;
+                border-radius: 5px;
+                border-left: 3px solid;
+            }
+
+            .message.sucesso {
+                color: var(--verde);
+                background: rgba(0, 208, 132, 0.1);
+                border-left-color: var(--verde);
+            }
+
+            .message.erro {
+                color: var(--vermelho);
+                background: rgba(255, 92, 124, 0.1);
+                border-left-color: var(--vermelho);
+            }
+
+            .message.info {
+                color: var(--laranja);
+                background: rgba(255, 107, 53, 0.1);
+                border-left-color: var(--laranja);
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+
+
+            /* Scrollbar personalizada */
+            .terminal-content::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .terminal-content::-webkit-scrollbar-track {
+                background: var(--azul-escuro);
+                border-radius: 10px;
+            }
+
+            .terminal-content::-webkit-scrollbar-thumb {
+                background: var(--laranja);
+                border-radius: 10px;
+            }
+
+            .terminal-content::-webkit-scrollbar-thumb:hover {
+                background: var(--laranja-escuro);
+            }
+
+            /* Tabela de resultados */
+            .tabela-estudantes {
+                max-height: 400px;
+                overflow-y: auto;
+                margin-top: 1rem;
+                border-radius: 1rem;
+                overflow: hidden;
+            }
+
+            .tabela-estudantes table {
+                font-size: 0.85rem;
+            }
+
+            .tabela-estudantes th {
+                background: var(--azul-escuro);
+                color: var(--branco);
+                font-weight: 600;
+                border: none;
+                padding: 0.75rem;
+            }
+
+            .tabela-estudantes td {
+                padding: 0.75rem;
+                border-bottom: 1px solid var(--cinza);
+            }
+
+            .tabela-estudantes tr:hover {
+                background: var(--cinza-claro);
+            }
+
+            .estatisticas {
+                background: linear-gradient(120deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+                /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+                
+                color: white;
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin-top: 1rem;
+            }
+
+            /* Responsividade total */
+            @media (max-width: 768px) {
+                body {
+                    padding: 0.5rem;
+                }
+
+                .hero h1 {
+                    font-size: 1.8rem;
+                }
+
+                .hero p {
+                    font-size: 0.85rem;
+                }
+
+
+                .command-item {
+                    font-size: 0.75rem;
+                    padding: 0.6rem;
+                }
+
+                i.fa-mobile-alt { display: block; }
+
+
+                .btn-executar {
+                    width: 100%;
+                    padding: 0.8rem;
+                }
+
+                .terminal-title {
+                    left: 50%;
+                }
+
+                .terminal-content {
+                    min-height: 120px;
+                    max-height: 300px;
+                }
+
+                textarea {
+                    min-height: 120px;
+                    min-width: 360px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid px-0 px-md-2" style="max-width: 1400px;">
+            <div class="glass-container">
+                <!-- Header com identidade laranja-azul -->
+                <div class="hero">
+                    <h1>
+                        <i class="fas fa-terminal"></i> BravON
+                    </h1>
+                    <p>BravON Editor </p>
+                </div>
+
+                <div class="p-3 p-md-4">
+                    <div class="row g-3">
+
+
+                        <!-- Coluna direita: editor e execução -->
+                        <div class="col-lg-7">
+                            <div class="code-area">
+                                <div class="code-header">
+                                    <div><i class="fas fa-edit"></i> Editor </div>
+                                    <small><i  class="fas fa-mobile-alt"></i> </small>
+                                </div>
+                                <textarea id="codigo" placeholder="Digite seus comandos aqui..."></textarea>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <button onclick="fazerCodigo()" class="btn btn-executar">
+                                    <i class="fas fa-play"></i> Executar
+                                </button>
+                            </div>
+
+                            <!-- Terminal de saída -->
+                            <div class="terminal-modern">
+                                <div class="terminal-header">
+                                    <div class="terminal-dot"></div>
+                                    <div class="terminal-dot"></div>
+                                    <div class="terminal-dot"></div>
+                                    <div class="terminal-title">terminal@bravon:~$</div>
+                                    <i class="fas fa-trash"
+                                        style="cursor: pointer; font-size: 12px; color: var(--laranja); margin-left: auto;"
+                                        onclick="limparTerminal()"></i>
+                                </div>
+                                <div id="output" class="terminal-content">
+                                    <span style="color: var(--cinza);">> Aguardando comandos...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exemplos Rápidos -->
+                        <div class="col-lg-5">
+                            <div class="info-card mt-3">
+                                <div class="card-title">
+                                    <i class="fas fa-lightbulb"></i> Exemplo
+                                </div>
+                                <pre
+                                    style="background:var(--cinza-claro); padding: 0.75rem; border-radius: 1rem; font-size: 0.75rem; margin: 0; overflow-x: auto; color: var(--azul-escuro); border: 1px solid var(--cinza);">
+                                    &#10;CADASTRAR ESTUDANTE "Aldo Silva" 20230145 "12º A" &#10;ADICIONAR NOTAS 20230145 15 18 17 &#10;LISTAR TODOS &#10;ESTATISTICAS
+                                </pre>
+                                <button class="btn btn-sm w-100 mt-2"
+                                    style="background: var(--laranja); color: var(--branco); border: none;"
+                                    onclick="carregarExemplo()">
+                                    <i class="fas fa-copy"></i> Usar este exemplo
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="tabelaDiv" style="display:none; margin-top: 2rem;"></div>
+                    <div id="estatisticasDiv" style="display:none; margin-top: 2rem;"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Função para inserir comando no textarea
+            function inserirComando(cmd) {
+                const textarea = document.getElementById('codigo');
+                const currentValue = textarea.value;
+                const newValue = currentValue ? currentValue + '\n' + cmd : cmd;
+                textarea.value = newValue;
+                textarea.focus();
+
+                // Feedback visual
+                if (event && event.currentTarget) {
+                    const item = event.currentTarget;
+                    item.style.transform = 'scale(0.98)';
+                    setTimeout(() => { item.style.transform = ''; }, 150);
+                }
+            }
+
+            function carregarExemplo() {
+                const exemplo = `CADASTRAR ESTUDANTE "Aldo Silva" 20230145 "12º A"
+    ADICIONAR NOTAS 20230145 15 18 17
+    LISTAR TODOS
+    ESTATISTICAS`;
+                document.getElementById('codigo').value = exemplo;
+                showTemporaryMessage('Exemplo carregado! Clique em \"Executar\" para rodar.', 'info');
+            }
+
+            function showTemporaryMessage(msg, tipo = 'info') {
+                const output = document.getElementById('output');
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${tipo}`;
+                msgDiv.innerHTML = msg;
+                output.appendChild(msgDiv);
+                output.scrollTop = output.scrollHeight;
+                setTimeout(() => { msgDiv.remove(); }, 3000);
+            }
+
+            function limparTerminal() {
+                const output = document.getElementById('output');
+                output.innerHTML = '<span style="color: var(--cinza);">> Aguardando comandos...</span>';
+            }
+
+            function executarCodigo() {
+                const codigo = document.getElementById('codigo').value;
+                const output = document.getElementById('output');
+
+                if (!codigo.trim()) {
+                    output.innerHTML = '<div class="message erro">Digite algum comando antes de executar.</div>';
+                    return;
+                }
+
+                // Mostrar loading
+                output.innerHTML = '<div style="display: flex; align-items: center; gap: 10px;"><div class="loading"></div> <span style="color: var(--laranja);">Processando comandos...</span></div>';
+
+                // Enviar para backend
+                fetch('/executar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ codigo: codigo })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Limpar output
+                        output.innerHTML = '';
+
+                        if (data.resultados && data.resultados.length > 0) {
+                            data.resultados.forEach(resultado => {
+                                const tipo = resultado.tipo === 'sucesso' ? 'sucesso' : 'erro';
+                                const mensagem = resultado.mensagem;
+                                const icone = tipo === 'sucesso' ? '✓' : '✗';
+
+                                // Criar elemento da mensagem
+                                const msgDiv = document.createElement('div');
+                                msgDiv.className = `message ${tipo}`;
+
+                                msgDiv.innerHTML = `${mensagem}`;
+                                output.appendChild(msgDiv);
+
+
+
+                                // Se houver estatísticas, mostrar
+                                if (resultado.estatisticas) {
+                                    const statsDiv = criarEstatisticas(resultado.estatisticas);
+                                    output.appendChild(statsDiv);
+                                }
+                            });
+                        } else {
+                            output.innerHTML = '<div class="message erro">Comando Incompleto.</div>';
+                        }
+
+                        output.scrollTop = output.scrollHeight;
+                    })
+                    .catch(error => {
+                        output.innerHTML = `<div class="message erro">Erro ao conectar ao servidor: ${error.message}</div>`;
+                        console.error('Erro:', error);
+                    });
+            }
+
+            function criarTabelaEstudantes(alunos) {
+                const container = document.createElement('div');
+                container.style.marginTop = '15px';
+                container.style.marginBottom = '10px';
+                container.className = 'tabela-estudantes';
+
+                let html = '<table class="table table-sm table-striped" style="margin: 0;">';
+                html += '<thead><tr><th>Matrícula</th><th>Nome</th><th>Turma</th></tr></thead><tbody>';
+
+                alunos.forEach(aluno => {
+                    html += `<tr>
+                        <td><strong>${aluno.matricula}</strong></td>
+                        <td>${aluno.nome}</td>
+                        <td>${aluno.turma}</td>
+                    </tr>`;
+                });
+
+                html += '</tbody></table>';
+                container.innerHTML = html;
+                return container;
+            }
+
+            function criarEstatisticas(stats) {
+                const container = document.createElement('div');
+                container.style.marginTop = '15px';
+                container.style.color = 'var(--verde)';
+                container.style.borderLeft = '3px solid var(--verde)';
+                container.style.paddingLeft = '10px';
+
+                let html = '<strong> Estatísticas:</strong><br>';
+                html += `• Total de alunos: ${stats.total_alunos || 0}<br>`;
+                html += `• Total de turmas: ${stats.total_turmas || 0}<br>`;
+                html += `• Média geral: ${(stats.media_geral || 0).toFixed(2)}<br>`;
+                html += `• Nota máxima: ${stats.nota_maxima || 0}<br>`;
+                html += `• Nota mínima: ${stats.nota_minima || 0}`;
+
+                container.innerHTML = html;
+                return container;
+            }
+
+            
+
+            document.querySelector('.hero').addEventListener('click', function (ttoque) {
+                window.location.href = '/'
+            })
+        </script>
+
+        <script>
+            let historico = [];
+
+            // Carregar histórico do servidor
+            function carregarHistorico() {
+                fetch('/historico')
+                    .then(res => res.json())
+                    .then(data => {
+                        historico = data.historico;
+                        atualizarVistaHistorico();
+                    })
+                    .catch(err => console.log('Erro ao carregar histórico'));
+            }
+
+            function atualizarVistaHistorico() {
+                const historicoDiv = document.getElementById('historico');
+                if (historico.length === 0) {
+                    document.getElementById('historicoDiv').style.display = 'none';
+                    return;
+                }
+                document.getElementById('historicoDiv').style.display = 'block';
+                historicoDiv.innerHTML = historico.map((cmd, i) =>
+                    `<div class="historico-item" onclick="insertExample('${cmd.replace(/'/g, "\\'")}')">${cmd}</div>`
+                ).join('');
+            }
+
+            function insertExample(text) {
+                document.getElementById('codigo').value = text;
+                document.getElementById('codigo').focus();
+            }
+
+            function limparConsole() {
+                document.getElementById('codigo').value = '';
+                document.getElementById('output').innerHTML = '<span style="color:#888">Console limpo...</span>';
+                document.getElementById('tabelaDiv').innerHTML = '';
+                document.getElementById('tabelaDiv').style.display = 'none';
+                document.getElementById('estatisticasDiv').innerHTML = '';
+                document.getElementById('estatisticasDiv').style.display = 'none';
+            }
+
+            function fazerCodigo() {
+                const codigo = document.getElementById('codigo').value;
+                const output = document.getElementById('output');
+                output.innerHTML = '<span style="color:yellow">Compilando e executando...</span>';
+                document.getElementById('tabelaDiv').style.display = 'none';
+                document.getElementById('estatisticasDiv').style.display = 'none';
+
+                fetch('/executar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ codigo: codigo })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        carregarHistorico();
+                        let html = '';
+                        data.resultados.forEach(r => {
+                            if (r.tipo === 'sucesso') {
+                                html += `<span style="color:#00ff00">✓ ${r.mensagem}</span><br>`;
+                            } else {
+                                html += `<span style="color:#ff4444">✗ ${r.mensagem}</span><br>`;
+                            }
+
+                            // Renderizar tabela de alunos
+                            if (r.dados && r.dados.length > 0) {
+                                exibirTabelaAlunos(r.dados);
+                            }
+
+                            // Renderizar estatísticas
+                            if (r.estatisticas) {
+                                exibirEstatisticas(r.estatisticas);
+                            }
+                        });
+                        output.innerHTML = html || '<span style="color:#888">Nenhum resultado.</span>';
+                    })
+                    .catch(err => {
+                        output.innerHTML = '<span style="color:#f56767">Erro de conexão com o servidor.</span><br>' + err;
+                    });
+
+                    executarCodigo();
+            }
+
+            function exibirTabelaAlunos(alunos) {
+                const tabelaDiv = document.getElementById('tabelaDiv');
+                let html = '<h5>👥 Tabela de Alunos</h5><div class="table-responsive tabela-resultado"><table class="table table-striped"><thead class="table-dark"><tr><th>Matrícula</th><th>Nome</th><th>Turma</th><th>Notas</th><th>Média</th></tr></thead><tbody>';
+
+                alunos.forEach(aluno => {
+                    const notas = aluno.notas || [];
+                    const media = notas.length > 0 ? (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2) : 'N/A';
+                    const notasStr = notas.length > 0 ? notas.join(', ') : 'Sem notas';
+                    html += `<tr><td>${aluno.matricula}</td><td>${aluno.nome}</td><td><span class="badge bg-info">${aluno.turma}</span></td><td>${notasStr}</td><td><strong>${media}</strong></td></tr>`;
+                });
+
+                html += '</tbody></table></div>';
+                tabelaDiv.innerHTML = html;
+                tabelaDiv.style.display = 'block';
+            }
+
+            function exibirEstatisticas(stats) {
+                const estDiv = document.getElementById('estatisticasDiv');
+                let html = '<h5>Estatísticas Gerais</h5><div class="estatisticas"><div class="row">';
+
+                html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.total_alunos}</div><div class="stat-label">Total de Alunos</div></div></div>`;
+                html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.total_turmas}</div><div class="stat-label">Total de Turmas</div></div></div>`;
+                html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.media_geral}</div><div class="stat-label">Média Geral</div></div></div>`;
+                html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.max_geral}</div><div class="stat-label">Maior Nota</div></div></div>`;
+
+                html += '</div></div>';
+
+                // Estatísticas por turma
+                if (Object.keys(stats.por_turma).length > 0) {
+                    html += '<h6 class="mt-3">Por Turma:</h6><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Turma</th><th>Alunos</th><th>Média</th><th>Max</th><th>Min</th></tr></thead><tbody>';
+                    Object.entries(stats.por_turma).forEach(([turma, dados]) => {
+                        html += `<tr><td><span class="badge " style="background-color: var(--laranja-escuro);">${turma}</span></td><td>${dados.alunos}</td><td>${dados.media}</td><td>${dados.max}</td><td>${dados.min}</td></tr>`;
+                    });
+                    html += '</tbody></table></div>';
+                }
+
+                estDiv.innerHTML = html;
+                estDiv.style.display = 'block';
+            }
+
+            function toggleTheme() {
+                const body = document.body;
+                const btn = document.getElementById('themeBtn');
+                body.classList.toggle('dark-mode');
+                btn.textContent = body.classList.contains('dark-mode') ? '☀️ Tema Claro' : '🌙 Tema Escuro';
+                localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+            }
+
+            // Restaurar tema salvo
+            window.addEventListener('load', () => {
+                const tema = localStorage.getItem('theme');
+                if (tema === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('themeBtn').textContent = '☀️ Tema Claro';
+                }
+                carregarHistorico();
+            });
+
+            // Atalho: Ctrl+Enter para executar
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    fazerCodigo();
+                }
+            });
+        </script>
+
+    </body>
+
+</html>
+
+

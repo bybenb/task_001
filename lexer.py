@@ -59,6 +59,10 @@ class Lexer:
                             self.tokens.append(Token(palavras_reservadas[valor_upper], valor_upper, self.linha))
                         else:
                             self.tokens.append(Token('IDENTIFIER', valor, self.linha))
+                    elif tipo == 'STRING':
+                        # Remover aspas do valor da string
+                        valor_limpo = match.group(1)
+                        self.tokens.append(Token(tipo, valor_limpo, self.linha))
                     elif tipo:
                         self.tokens.append(Token(tipo, valor, self.linha))
                     break

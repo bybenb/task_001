@@ -23,7 +23,7 @@ class TestCommands(unittest.TestCase):
 
     def test_cadastrar_estudante(self):
         """Teste: Cadastrar um estudante"""
-        codigo = 'CADASTRAR ESTUDANTE "João Silva" 20230001 "12º A"'
+        codigo = 'CADASTRAR ESTUDANTE "Aldo Silva" 20230001 "12º A"'
         ast = self.tokenize_and_parse(codigo)
         resultado = self.interpreter.executar(ast)
         
@@ -33,7 +33,7 @@ class TestCommands(unittest.TestCase):
 
     def test_cadastrar_duplicado(self):
         """Teste: Não permitir matrícula duplicada"""
-        codigo1 = 'CADASTRAR ESTUDANTE "João Silva" 20230001 "12º A"'
+        codigo1 = 'CADASTRAR ESTUDANTE "Aldo Silva" 20230001 "12º A"'
         codigo2 = 'CADASTRAR ESTUDANTE "Maria Silva" 20230001 "12º B"'
         
         ast1 = self.tokenize_and_parse(codigo1)

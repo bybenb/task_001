@@ -226,7 +226,7 @@ __marimo__/
 
 
 # By Beny B. Reis II
-data/estudantes.json
+static/*.py
 rascunhos
 rascunho
 dep

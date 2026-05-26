@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF6B35">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Sobre BravON - A linguagem educacional para gerenciamento de turmas. Desenvolvido por UNITIC.">
+    <meta name="keywords" content="BravON, sobre, equipa, UNITIC, educação">
+    <meta name="author" content="UNITIC">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sobre BravON">
+    <meta property="og:description" content="Conheça a história e missão do BravON">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg" href="/static/logo.svg">
+
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Sobre - BravON</title>
+
+    <style>
+        :root {
+            --laranja: #FF6B35;
+            --azul-escuro: #1A2A3A;
+            --branco: #F5F5F5;
+            --cinza: #E0E0E0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, #2A4A5A 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .navbar-custom {
+            background: var(--azul-escuro);
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.1);
+            border-bottom: 3px solid var(--laranja);
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar-brand span {
+            font-weight: 700;
+            color: var(--laranja);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: color 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .nav-link:hover {
+            color: var(--laranja) !important;
+        }
+
+        .nav-link.active {
+            color: var(--laranja) !important;
+            font-weight: 600;
+        }
+
+        .container-main {
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-card h2 {
+            color: var(--azul-escuro);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .content-card h2 i {
+            color: var(--laranja);
+            font-size: 1.8rem;
+        }
+
+        .content-card h3 {
+            color: var(--azul-escuro);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-card p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .mission-box {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(26, 42, 58, 0.05));
+            border-left: 4px solid var(--laranja);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .mission-box strong {
+            color: var(--laranja);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(26, 42, 58, 0.05));
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            border-color: var(--laranja);
+            transform: translateY(-5px);
+        }
+
+        .team-member i {
+            font-size: 2.5rem;
+            color: var(--laranja);
+            margin-bottom: 0.8rem;
+        }
+
+        .team-member h4 {
+            color: var(--azul-escuro);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .team-member p {
+            color: #999;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-bottom: 1px solid var(--cinza);
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list i {
+            color: var(--laranja);
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--laranja);
+            border-radius: 50%;
+            top: 0;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 20px;
+            bottom: -20px;
+            width: 2px;
+            background: var(--cinza);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-content h4 {
+            color: var(--azul-escuro);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-content p {
+            color: #5c5b5b;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, var(--laranja), #E85A2C);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: var(--azul-escuro);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--laranja);
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--laranja);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                margin-top: 1rem;
+            }
+
+            .nav-link {
+                margin-left: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-custom navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/static/logo.svg" alt="BravON Logo">
+                <span>BravON</span>
+            </a>
+            <button class="navbar-toggler" style="background-color: var(--laranja);" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/editor">Editor</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="/settings">Settings</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help">Docs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container container-main flex-grow-1">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h1 style="color: white; margin-bottom: 2rem; font-weight: 700;">
+                    <!-- <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>  --> &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp;
+                </h1>
+
+                <!-- MISSION -->
+                <div class="content-card">
+                    <h2><i class="fas fa-target"></i> </h2>
+
+
+                    <p style="margin: 0;">
+                        O <strong>BravOn</strong> é uma linguagem de
+                        programação educacional intuitiva, focada em gestão de turmas e escolas. Foi criado com a
+                        convicção de que a tecnologia
+                        deve servir a <strong>educação</strong>. Com uma sintaxe em português e operações transparentes,
+                        qualquer pessoa lusofona
+                        pode facilmente gerenciar turmas, registrar notas e gerar relatórios sem conhecimentos avançados
+                        de programação.
+                    </p>
+                    <p>
+                        Atualmente o BravON é uma linguagem DSL totalmente Open-Source e 24h/Uptime, desenvolvida por
+                        uma equipa de programadores e designers
+                        apaixonados por tornar a educação melhor <strong>através da tecnologia</strong>, pertencente a
+                        <a id="ref_unitic"><strong>UNITIC</strong></a>.
+
+
+
+                        <!-- CONTACT -->
+                    <div class="content-card">
+                        <h2><i class="fas fa-envelope"></i> Contactos</h2>
+
+                        <p>Tem dúvidas, sugestões ou quer reportar um bug? Contacte-nos:</p>
+
+                        <ul class="features-list">
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span><a href="mailto:itsbenyreis@gmail.com"
+                                        style="color: var(--laranja); text-decoration: none;">Desenvolvedores</a></span>
+                            </li>
+                            <li>
+                                <i class="fas fa-github"></i>
+                                <span><a href="https://github.com/bybenb/task_001/blob/main/README.md" target="_blank"
+                                        style="color: var(--laranja); text-decoration: none;">Open Source</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer style="margin-top: auto;">
+            <p>&copy; 2026 BravON. Todos os direitos reservados.</p>
+            <p><strong style="color: var(--laranja);"> Powered by <a href="https://unitic.site"
+                        target="_blank">UNITIC</a></strong></p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.querySelector('#ref_unitic').addEventListener('click', function () {
+                window.open(href = "https://unitic.site/sobre", target = '_blank')
+            })
+        </script>
+</body>
+
+</html>

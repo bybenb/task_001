@@ -141,6 +141,20 @@ class Interpreter:
             self.save_data()
             return {"sucesso": True, "mensagem": f"{len(alunos_promovidos)} aluno(s) promovido(s) de {turma_origem} para {turma_destino}.", "alunos": alunos_promovidos}
 
+        elif cmd["tipo"] == "PROMOVER_ESTUDANTE":
+            matricula = cmd.get("matricula")
+            turma_destino = cmd.get("turma_destino")
+            
+            estudante = next((est for est in self.estudantes if est["matricula"] == matricula), None)
+            if not estudante:
+                return {"sucesso": False, "mensagem": f"Estudante com matrícula {matricula} não encontrado."}
+            
+            turma_origem = estudante["turma"]
+            estudante["turma"] = turma_destino
+            
+            self.save_data()
+            return {"sucesso": True, "mensagem": f"Estudante {estudante['nome']} promovido de {turma_origem} para {turma_destino}.", "alunos": [estudante]}
+
         elif cmd["tipo"] == "ESTATISTICAS":
             if not self.estudantes:
                 return {"sucesso": True, "mensagem": "Nenhum estudante cadastrado.", "estatisticas": {}}
@@ -186,7 +200,7 @@ class Interpreter:
             else:
                 media_geral = max_geral = min_geral = 0
             
-            mensagem = f"Total de estudantes: {len(self.estudantes)}\\nMédia geral: {media_geral:.2f}\\nMaior nota: {max_geral}\\nMenor nota: {min_geral}"
+            mensagem = f"Total de estudantes: {len(self.estudantes)} <br>Média geral: {media_geral:.2f} <br>Maior nota: {max_geral} <br> Menor nota: {min_geral}"
             
             return {
                 "sucesso": True,

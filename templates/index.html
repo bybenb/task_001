@@ -130,12 +130,14 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group small">
-                            <li class="list-group-item">📝 <strong>CADASTRAR ESTUDANTE</strong> "Nome" matricula "Turma"</li>
+                            <li class="list-group-item">📝 <strong>CADASTRAR ESTUDANTE</strong> "Nome" matricula "Turma"
+                            </li>
                             <li class="list-group-item">📊 <strong>ADICIONAR NOTAS</strong> matricula pp1 pp2 nota3</li>
                             <li class="list-group-item">🔍 <strong>CONSULTAR NOTAS</strong> matricula</li>
                             <li class="list-group-item">👥 <strong>LISTAR TODOS</strong></li>
                             <li class="list-group-item">❌ <strong>REMOVER ESTUDANTE</strong> matricula</li>
-                            <li class="list-group-item">📈 <strong>PROMOVER TURMA</strong> "Turma Origem" "Turma Destino"</li>
+                            <li class="list-group-item">📈 <strong>PROMOVER TURMA</strong> "Turma Origem" "Turma
+                                Destino"</li>
                             <li class="list-group-item">📊 <strong>ESTATISTICAS</strong></li>
                             <li class="list-group-item">📋 <strong>RELATORIO TURMA</strong> "Nome da Turma"</li>
                             <li class="list-group-item">📋 <strong>RELATORIO GERAL</strong></li>
@@ -150,11 +152,17 @@
                         <h5 class="mb-0">⚡ Exemplos Rápidos</h5>
                     </div>
                     <div class="card-body">
-                        <button class="btn btn-outline-primary btn-exemplo w-100" onclick="insertExample('CADASTRAR ESTUDANTE \"Ana Silva\" 20230145 \"12º A\"')">Cadastrar Aluno</button>
-                        <button class="btn btn-outline-success btn-exemplo w-100" onclick="insertExample('ADICIONAR NOTAS 20230145 15 18 17')">Adicionar Notas</button>
-                        <button class="btn btn-outline-info btn-exemplo w-100" onclick="insertExample('LISTAR TODOS')">Listar Todos</button>
-                        <button class="btn btn-outline-warning btn-exemplo w-100" onclick="insertExample('ESTATISTICAS')">Ver Estatísticas</button>
-                        <button class="btn btn-outline-secondary btn-exemplo w-100" onclick="insertExample('RELATORIO GERAL')">Relatório Geral</button>
+                        <button class="btn btn-outline-primary btn-exemplo w-100"
+                            onclick="insertExample('CADASTRAR ESTUDANTE \" Ana Silva\" 20230145 \"12º A\"')">Cadastrar
+                            Aluno</button>
+                        <button class="btn btn-outline-success btn-exemplo w-100"
+                            onclick="insertExample('ADICIONAR NOTAS 20230145 15 18 17')">Adicionar Notas</button>
+                        <button class="btn btn-outline-info btn-exemplo w-100"
+                            onclick="insertExample('LISTAR TODOS')">Listar Todos</button>
+                        <button class="btn btn-outline-warning btn-exemplo w-100"
+                            onclick="insertExample('ESTATISTICAS')">Ver Estatísticas</button>
+                        <button class="btn btn-outline-secondary btn-exemplo w-100"
+                            onclick="insertExample('RELATORIO GERAL')">Relatório Geral</button>
                     </div>
                 </div>
             </div>
@@ -166,10 +174,11 @@
                         <h5 class="mb-0">💻 Console de Comandos</h5>
                     </div>
                     <div class="card-body">
-                        <textarea id="codigo" class="form-control" rows="10" placeholder="Digite seus comandos aqui..." style="font-family: 'Courier New', monospace;"></textarea>
+                        <textarea id="codigo" class="form-control" rows="10" placeholder="Digite seus comandos aqui..."
+                            style="font-family: 'Courier New', monospace;"></textarea>
 
                         <div class="text-center mt-3">
-                            <button onclick="executarCodigo()" class="btn btn-success btn-lg px-5 btn-executar">
+                            <button onclick="fazerCodigo()" class="btn btn-success btn-lg px-5 btn-executar">
                                 ▶️ Executar Código
                             </button>
                             <button onclick="limparConsole()" class="btn btn-warning btn-lg px-5">
@@ -220,7 +229,7 @@
                 return;
             }
             document.getElementById('historicoDiv').style.display = 'block';
-            historicoDiv.innerHTML = historico.map((cmd, i) => 
+            historicoDiv.innerHTML = historico.map((cmd, i) =>
                 `<div class="historico-item" onclick="insertExample('${cmd.replace(/'/g, "\\'")}')">${cmd}</div>`
             ).join('');
         }
@@ -239,7 +248,7 @@
             document.getElementById('estatisticasDiv').style.display = 'none';
         }
 
-        function executarCodigo() {
+        function fazerCodigo() {
             const codigo = document.getElementById('codigo').value;
             const output = document.getElementById('output');
             output.innerHTML = '<span style="color:yellow">⏳ Compilando e executando...</span>';
@@ -275,21 +284,21 @@
                     output.innerHTML = html || '<span style="color:#888">Nenhum resultado.</span>';
                 })
                 .catch(err => {
-                    output.innerHTML = '<span style="color:#ff6666">Erro de conexão com o servidor.</span><br>' + err;
+                    output.innerHTML = '<span style="color:#f56767">Erro de conexão com o servidor.</span><br>' + err;
                 });
         }
 
         function exibirTabelaAlunos(alunos) {
             const tabelaDiv = document.getElementById('tabelaDiv');
             let html = '<h5>👥 Tabela de Alunos</h5><div class="table-responsive tabela-resultado"><table class="table table-striped"><thead class="table-dark"><tr><th>Matrícula</th><th>Nome</th><th>Turma</th><th>Notas</th><th>Média</th></tr></thead><tbody>';
-            
+
             alunos.forEach(aluno => {
                 const notas = aluno.notas || [];
                 const media = notas.length > 0 ? (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2) : 'N/A';
                 const notasStr = notas.length > 0 ? notas.join(', ') : 'Sem notas';
                 html += `<tr><td>${aluno.matricula}</td><td>${aluno.nome}</td><td><span class="badge bg-info">${aluno.turma}</span></td><td>${notasStr}</td><td><strong>${media}</strong></td></tr>`;
             });
-            
+
             html += '</tbody></table></div>';
             tabelaDiv.innerHTML = html;
             tabelaDiv.style.display = 'block';
@@ -298,12 +307,12 @@
         function exibirEstatisticas(stats) {
             const estDiv = document.getElementById('estatisticasDiv');
             let html = '<h5>📊 Estatísticas Gerais</h5><div class="estatisticas"><div class="row">';
-            
+
             html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.total_alunos}</div><div class="stat-label">Total de Alunos</div></div></div>`;
             html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.total_turmas}</div><div class="stat-label">Total de Turmas</div></div></div>`;
             html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.media_geral}</div><div class="stat-label">Média Geral</div></div></div>`;
             html += `<div class="col-md-3"><div class="stat-item"><div class="stat-valor">${stats.max_geral}</div><div class="stat-label">Maior Nota</div></div></div>`;
-            
+
             html += '</div></div>';
 
             // Estatísticas por turma
@@ -340,7 +349,7 @@
         // Atalho: Ctrl+Enter para executar
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'Enter') {
-                executarCodigo();
+                fazerCodigo();
             }
         });
     </script>

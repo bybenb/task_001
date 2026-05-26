@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF6B35">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Configurações do BravON - Personalize sua experiência com a linguagem educacional.">
+    <meta name="keywords" content="BravON, configurações, preferências, tema, idioma">
+    <meta name="author" content="UNITIC">
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Configurações - BravON">
+    <meta property="og:description" content="Personalize suas preferências no BravON">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg" href="/static/logo.svg">
+
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Configurações - BravON</title>
+
+    <style>
+        :root {
+            --laranja: #FF6B35;
+            --azul-escuro: #1A2A3A;
+            --branco: #F5F5F5;
+            --cinza: #E0E0E0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--azul-escuro) 0%, #2A4A5A 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .navbar-custom {
+            background: var(--azul-escuro);
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.1);
+            border-bottom: 3px solid var(--laranja);
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar-brand span {
+            font-weight: 700;
+            color: var(--laranja);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: color 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .nav-link:hover {
+            color: var(--laranja) !important;
+        }
+
+        .nav-link.active {
+            color: var(--laranja) !important;
+            font-weight: 600;
+        }
+
+        .container-main {
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .settings-header {
+            background: linear-gradient(135deg, var(--laranja), #E85A2C);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .settings-header i {
+            font-size: 1.8rem;
+        }
+
+        .settings-header h3 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .settings-body {
+            padding: 2rem;
+        }
+
+        .setting-group {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--cinza);
+        }
+
+        .setting-group:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-weight: 600;
+            color: var(--azul-escuro);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .setting-description {
+            color: #585656;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .form-check {
+            padding-left: 2rem;
+        }
+
+        .form-check-input {
+            width: 1.25em;
+            height: 1.25em;
+            border-color: var(--cinza);
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--laranja);
+            border-color: var(--laranja);
+        }
+
+        .form-check-label {
+            cursor: pointer;
+            margin-bottom: 0;
+            user-select: none;
+        }
+
+        .form-select {
+            border-color: var(--cinza);
+            border-radius: 6px;
+            padding: 0.6rem 0.75rem;
+        }
+
+        .form-select:focus {
+            border-color: var(--laranja);
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+
+        .form-range {
+            height: 0.5rem;
+        }
+
+        .form-range .form-range-track {
+            background-color: var(--cinza);
+        }
+
+        .form-range .form-range-thumb {
+            background-color: var(--laranja);
+            border-color: var(--laranja);
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, var(--laranja), #E85A2C);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            border: 1px solid var(--cinza);
+            color: var(--azul-escuro);
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .btn-reset:hover {
+            background: var(--cinza);
+            color: var(--azul-escuro);
+            text-decoration: none;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(26, 42, 58, 0.1));
+            border-left: 4px solid var(--laranja);
+            color: var(--azul-escuro);
+        }
+
+        .text-muted {
+            color: #999 !important;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            background: var(--azul-escuro);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid var(--laranja);
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--laranja);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                margin-top: 1rem;
+            }
+
+            .nav-link {
+                margin-left: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .settings-body {
+                padding: 1.5rem;
+            }
+
+            .btn-reset {
+                margin-left: 0;
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+
+            .btn-save {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-custom navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/static/logo.svg" alt="BravON Logo">
+                <span>BravON</span>
+            </a>
+            <button class="navbar-toggler" style="background-color: var(--laranja);" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/editor">Editor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/settings">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help">Documentação</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container container-main flex-grow-1">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h1 style="color: white; margin-bottom: 2rem; font-weight: 700;">
+                    <i class="fas fa-cog" style="margin-right: 0.5rem;"></i> Configurações
+                </h1>
+
+                <!-- THEME SETTINGS -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-palette"></i>
+                        <h3>Aparência</h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <i class="fas fa-moon"></i> Tema
+                            </label>
+                            <p class="setting-description">Escolha como o BravON deve aparecer</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="theme-light" value="light"
+                                    checked>
+                                <label class="form-check-label" for="theme-light">
+                                    <i class="fas fa-sun"></i> Claro
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="theme-dark" value="dark">
+                                <label class="form-check-label" for="theme-dark">
+                                    <i class="fas fa-moon"></i> Escuro
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="theme-auto" value="auto">
+                                <label class="form-check-label" for="theme-auto">
+                                    <i class="fas fa-circle-notch"></i> Automático
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <i class="fas fa-text-height"></i> Tamanho de Fonte no Editor
+                            </label>
+                            <p class="setting-description">Ajuste o tamanho do texto (12-20px)</p>
+                            <div class="d-flex align-items-center gap-2">
+                                <small>12px</small>
+                                <input type="range" class="form-range" id="fontSize" min="12" max="20" value="14">
+                                <small>20px</small>
+                            </div>
+                            <small class="text-muted" id="fontSizeDisplay">Tamanho atual: 14px</small>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="animationsEnabled" checked>
+                                <label class="form-check-label" for="animationsEnabled">
+                                    <i class="fas fa-sparkles"></i> Ativar animações
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDITOR SETTINGS -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Editor</h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <i class="fas fa-indent"></i> Espaçamento de Tabulação
+                            </label>
+                            <p class="setting-description">Número de espaços por indentação</p>
+                            <select class="form-select" id="tabSize" style="width: 150px;">
+                                <option value="2">2 espaços</option>
+                                <option value="4" selected>4 espaços</option>
+                                <option value="8">8 espaços</option>
+                            </select>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="wordWrap" checked>
+                                <label class="form-check-label" for="wordWrap">
+                                    <i class="fas fa-paragraph"></i> Quebra automática de linhas
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="autoSave" checked>
+                                <label class="form-check-label" for="autoSave">
+                                    <i class="fas fa-save"></i> Auto-guardar rascunho
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NOTIFICATION SETTINGS -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-bell"></i>
+                        <h3>Notificações</h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="setting-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="errorNotif" checked>
+                                <label class="form-check-label" for="errorNotif">
+                                    <i class="fas fa-exclamation-circle"></i> Notificar erros de execução
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="successNotif" checked>
+                                <label class="form-check-label" for="successNotif">
+                                    <i class="fas fa-check-circle"></i> Notificar sucesso
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="soundNotif">
+                                <label class="form-check-label" for="soundNotif">
+                                    <i class="fas fa-volume-up"></i> Sons de notificação
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DATA & STORAGE -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <i class="fas fa-database"></i>
+                        <h3>Dados & Armazenamento</h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="alert alert-info mb-3">
+                            <i class="fas fa-info-circle"></i> Seus dados são armazenados localmente no navegador e no
+                            servidor da aplicação
+                        </div>
+
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <i class="fas fa-download"></i> Exportar Dados
+                            </label>
+                            <p class="setting-description">Descarregar uma cópia dos seus dados em JSON</p>
+                            <button class="btn-save" id="exportBtn">
+                                <i class="fas fa-file-download"></i> Exportar
+                            </button>
+                        </div>
+
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <i class="fas fa-trash"></i> Limpar Rascunho Local
+                            </label>
+                            <p class="setting-description">Remover o rascunho de código salvo localmente</p>
+                            <button class="btn-reset" id="clearDraftBtn">
+                                <i class="fas fa-eraser"></i> Limpar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button class="btn-save" id="saveSettingsBtn">
+                        <i class="fas fa-check"></i> Guardar Configurações
+                    </button>
+                    <button class="btn-reset" id="resetSettingsBtn">
+                        <i class="fas fa-redo"></i> Restaurar Padrões
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="margin-top: auto;">
+        <p>&copy; 2026 BravON. Todos os direitos reservados.</p>
+        <p><strong style="color: var(--laranja);"> Powered by <a href="https://unitic.site"
+                    target="_blank">UNITIC</a></strong></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load settings from localStorage
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('bravon_settings') || '{}');
+
+            if (settings.theme) document.getElementById('theme-' + settings.theme).checked = true;
+            if (settings.fontSize) {
+                document.getElementById('fontSize').value = settings.fontSize;
+                updateFontSizeDisplay();
+            }
+            if (settings.tabSize) document.getElementById('tabSize').value = settings.tabSize;
+            if (settings.animationsEnabled !== undefined) document.getElementById('animationsEnabled').checked = settings.animationsEnabled;
+            if (settings.wordWrap !== undefined) document.getElementById('wordWrap').checked = settings.wordWrap;
+            if (settings.autoSave !== undefined) document.getElementById('autoSave').checked = settings.autoSave;
+            if (settings.errorNotif !== undefined) document.getElementById('errorNotif').checked = settings.errorNotif;
+            if (settings.successNotif !== undefined) document.getElementById('successNotif').checked = settings.successNotif;
+            if (settings.soundNotif !== undefined) document.getElementById('soundNotif').checked = settings.soundNotif;
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            const settings = {
+                theme: document.querySelector('input[name="theme"]:checked').value,
+                fontSize: document.getElementById('fontSize').value,
+                tabSize: document.getElementById('tabSize').value,
+                animationsEnabled: document.getElementById('animationsEnabled').checked,
+                wordWrap: document.getElementById('wordWrap').checked,
+                autoSave: document.getElementById('autoSave').checked,
+                errorNotif: document.getElementById('errorNotif').checked,
+                successNotif: document.getElementById('successNotif').checked,
+                soundNotif: document.getElementById('soundNotif').checked
+            };
+
+            localStorage.setItem('bravon_settings', JSON.stringify(settings));
+            alert('✓ Configurações guardadas com sucesso!');
+        }
+
+        // Font size display
+        function updateFontSizeDisplay() {
+            const size = document.getElementById('fontSize').value;
+            document.getElementById('fontSizeDisplay').textContent = `Tamanho atual: ${size}px`;
+        }
+
+        // Reset to defaults
+        function resetSettings() {
+            if (confirm('Tem certeza que deseja restaurar as configurações padrão?')) {
+                localStorage.removeItem('bravon_settings');
+                location.reload();
+            }
+        }
+
+        // Export data
+        function exportData() {
+            const dataStr = localStorage.getItem('bravon_data') || '{"estudantes": []}';
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `bravon_backup_${new Date().toISOString().slice(0, 10)}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Clear draft
+        function clearDraft() {
+            if (confirm('Deseja remover o rascunho salvo localmente?')) {
+                localStorage.removeItem('bravon_draft');
+                alert('✓ Rascunho limpo com sucesso!');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('fontSize').addEventListener('change', updateFontSizeDisplay);
+        document.getElementById('saveSettingsBtn').addEventListener('click', saveSettings);
+        document.getElementById('resetSettingsBtn').addEventListener('click', resetSettings);
+        document.getElementById('exportBtn').addEventListener('click', exportData);
+        document.getElementById('clearDraftBtn').addEventListener('click', clearDraft);
+
+        // Load settings on page load
+        loadSettings();
+    </script>
+</body>
+
+</html>

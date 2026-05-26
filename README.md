@@ -2,7 +2,9 @@
 > Simulador de Compilador de Linguagem de Comandos Escolares
 
 
-Compilador web para uma linguagem simples de gestão escolar, desenvolvido em Python com Flask para a disciplina de ***Compiladores***. Ainda não batizei-a, ainda estou pensando num nome daóra :) ... 
+Compilador web para uma linguagem simples de gestão escolar, desenvolvido em Python com Flask para a disciplina de ***Compiladores***. Ainda não batizei-a, ainda estou pensando num nome daóra :) ...
+
+Enquanto isso, veja o que já fiz, [AQUI](https://bravon.unitic.site)  
 
 
 
@@ -50,8 +52,8 @@ python -m unittest test_commands.py -v
 ## Exemplos
 
 ```
-CADASTRAR ESTUDANTE "João Silva" 20230145 "12º A"
-ADICIONAR NOTAS 20230145 15 18 17
+CADASTRAR ESTUDANTE "Aldo ilva" 20050624 "3º A"
+ADICIONAR NOTAS 20050624 15 18 17
 LISTAR TODOS
 ESTATISTICAS
 ```

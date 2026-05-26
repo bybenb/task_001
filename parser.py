@@ -152,16 +152,36 @@ class Parser:
 
     def comando_promover(self):
         self.eat('PROMOVER')
-        self.eat('TURMA')
-        turma_origem = self.eat('STRING')
-        turma_destino = self.eat('STRING')
+        token = self.current_token()
+        
+        # PROMOVER TURMA "turma_origem" "turma_destino"
+        if token and token.tipo == 'TURMA':
+            self.eat('TURMA')
+            turma_origem = self.eat('STRING')
+            turma_destino = self.eat('STRING')
 
-        if turma_origem and turma_destino:
-            return {
-                "tipo": "PROMOVER_TURMA",
-                "turma_origem": turma_origem.valor,
-                "turma_destino": turma_destino.valor
-            }
+            if turma_origem and turma_destino:
+                return {
+                    "tipo": "PROMOVER_TURMA",
+                    "turma_origem": turma_origem.valor,
+                    "turma_destino": turma_destino.valor
+                }
+            return None
+        
+        # PROMOVER ESTUDANTE matricula "turma_destino"
+        elif token and token.tipo == 'ESTUDANTE':
+            self.eat('ESTUDANTE')
+            matricula = self.eat('INTEGER')
+            turma_destino = self.eat('STRING')
+            
+            if matricula and turma_destino:
+                return {
+                    "tipo": "PROMOVER_ESTUDANTE",
+                    "matricula": int(matricula.valor),
+                    "turma_destino": turma_destino.valor
+                }
+            return None
+        
         return None
 
     def comando_estatisticas(self):
