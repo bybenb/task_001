@@ -496,51 +496,7 @@
 
             <div class="p-3 p-md-4">
                 <div class="row g-3">
-                    <!-- Coluna esquerda: comandos -->
-                    <!-- <div class="col-lg-5">
-                        <div class="info-card">
-                            <div class="card-title">
-                                <i class="fas fa-code-branch"></i> Comandos Disponíveis
-                            </div>
-                            <div class="command-list">
-                                <div class="command-item" onclick="inserirComando('CADASTRAR ESTUDANTE \"Nome\" matricula \"Turma\"')">
-                                    <i class="fas fa-user-plus"></i> CADASTRAR ESTUDANTE
-                                </div>
-                                <div class="command-item" onclick="inserirComando('ADICIONAR NOTAS matricula n1 n2 n3')">
-                                    <i class="fas fa-pen-fancy"></i> ADICIONAR NOTAS
-                                </div>
-                                <div class="command-item" onclick="inserirComando('CONSULTAR NOTAS matricula')">
-                                    <i class="fas fa-chart-line"></i> CONSULTAR NOTAS
-                                </div>
-                                <div class="command-item" onclick="inserirComando('REMOVER ESTUDANTE matricula')">
-                                    <i class="fas fa-user-minus"></i> REMOVER ESTUDANTE
-                                </div>
-                                <div class="command-item" onclick="inserirComando('LISTAR TODOS')">
-                                    <i class="fas fa-list"></i> LISTAR TODOS
-                                </div>
-                                <div class="command-item" onclick="inserirComando('PROMOVER TURMA \"TurmaOrigem\" \"TurmaDestino\"')">
-                                    <i class="fas fa-graduation-cap"></i> PROMOVER TURMA
-                                </div>
-                                <div class="command-item" onclick="inserirComando('PROMOVER ESTUDANTE matricula \"Turma\"')">
-                                    <i class="fas fa-user-graduate"></i> PROMOVER ESTUDANTE
-                                </div>
-                                <div class="command-item" onclick="inserirComando('RELATORIO TURMA \"Nome da Turma\"')">
-                                    <i class="fas fa-users"></i> RELATORIO TURMA
-                                </div>
-                                <div class="command-item" onclick="inserirComando('RELATORIO GERAL')">
-                                    <i class="fas fa-globe"></i> RELATORIO GERAL
-                                </div>
-                                <div class="command-item" onclick="inserirComando('ESTATISTICAS')">
-                                    <i class="fas fa-chart-bar"></i> ESTATISTICAS
-                                </div>
-                                <div class="command-item" onclick="inserirComando('SAIR')">
-                                    <i class="fas fa-sign-out-alt"></i> SAIR
-                                </div>
-                            </div>
-                        </div>
 
-
-                    </div> -->
 
                     <!-- Coluna direita: editor e execução -->
                     <div class="col-lg-7">
@@ -575,7 +531,7 @@
                         </div>
                     </div>
 
-                    <!-- xyz -->
+                    <!-- Exemplos Rápidos -->
                     <div class="col-lg-5">
                         <div class="info-card mt-3">
                             <div class="card-title">
@@ -677,15 +633,11 @@ ESTATISTICAS`;
                             // Criar elemento da mensagem
                             const msgDiv = document.createElement('div');
                             msgDiv.className = `message ${tipo}`;
-                            // msgDiv.innerHTML = `${icone} ${mensagem}`;
+
                             msgDiv.innerHTML = `${mensagem}`;
                             output.appendChild(msgDiv);
 
-                            // Se houver dados de alunos, mostrar tabela
-                            if (resultado.dados && resultado.dados.length > 0) {
-                                // const tabela = criarTabelaEstudantes(resultado.dados);
-                                // output.appendChild(tabela);
-                            }
+
 
                             // Se houver estatísticas, mostrar
                             if (resultado.estatisticas) {
@@ -745,13 +697,7 @@ ESTATISTICAS`;
             return container;
         }
 
-        // Atalho Ctrl+Enter
-        // document.getElementById('codigo').addEventListener('keydown', function (e) {
-        //     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        //         e.preventDefault();
-        //         executarCodigo();
-        //     }
-        // });
+        
 
         document.querySelector('.hero').addEventListener('click', function (ttoque) {
             window.location.href = '/'
