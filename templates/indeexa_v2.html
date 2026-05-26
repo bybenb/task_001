@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>BravON - Compilador Escolar</title>
+    <title>Editor | BravON - Compilador Escolar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -208,8 +208,9 @@
             font-family: 'Courier New', monospace;
             font-size: 0.95rem;
             padding: 1rem;
-            resize: vertical;
-            min-height: 120px;
+            resize: both;
+            min-height: 240px;
+            min-width: 770px;
         }
 
         textarea::placeholder {
@@ -282,7 +283,7 @@
             margin-left: auto;
             margin-right: auto;
             position: absolute;
-            left: 50%;
+            left: 70%;
             transform: translateX(-50%);
         }
 
@@ -422,9 +423,16 @@
                 padding: 0.8rem;
             }
 
+        .terminal-title { left: 50%; }
+
             .terminal-content {
                 min-height: 120px;
                 max-height: 300px;
+            }
+            
+            textarea {
+                min-height: 120px;
+                min-width: 360px;
             }
         }
     </style>
@@ -438,13 +446,13 @@
                 <h1>
                     <i class="fas fa-terminal"></i> BravON
                 </h1>
-                <p>Linguagem de Comandos Escolares — Execute e gerencie informações estudantis</p>
+                <p>BravON Editor </p>
             </div>
 
             <div class="p-3 p-md-4">
                 <div class="row g-3">
                     <!-- Coluna esquerda: comandos -->
-                    <div class="col-lg-5">
+                    <!-- <div class="col-lg-5">
                         <div class="info-card">
                             <div class="card-title">
                                 <i class="fas fa-code-branch"></i> Comandos Disponíveis
@@ -486,33 +494,22 @@
                             </div>
                         </div>
 
-                        <div class="info-card mt-3">
-                            <div class="card-title">
-                                <i class="fas fa-lightbulb"></i> Exemplo Rápido
-                            </div>
-                            <pre style="background:var(--cinza-claro); padding: 0.75rem; border-radius: 1rem; font-size: 0.75rem; margin: 0; overflow-x: auto; color: var(--azul-escuro); border: 1px solid var(--cinza);">CADASTRAR ESTUDANTE "Aldo Silva" 20230145 "12º A"
-ADICIONAR NOTAS 20230145 15 18 17
-LISTAR TODOS
-ESTATISTICAS</pre>
-                            <button class="btn btn-sm w-100 mt-2" style="background: var(--laranja); color: var(--branco); border: none;" onclick="carregarExemplo()">
-                                <i class="fas fa-copy"></i> Usar este exemplo
-                            </button>
-                        </div>
-                    </div>
+
+                    </div> -->
 
                     <!-- Coluna direita: editor e execução -->
                     <div class="col-lg-7">
                         <div class="code-area">
                             <div class="code-header">
-                                <div><i class="fas fa-edit"></i> Editor BravON</div>
-                                <small><i class="fas fa-mobile-alt"></i> Responsivo</small>
+                                <div><i class="fas fa-edit"></i> Editor </div>
+                                <small><i class="fas fa-mobile-alt"></i> </small>
                             </div>
-                            <textarea id="codigo" placeholder="Digite seus comandos aqui...&#10;Ex:&#10;CADASTRAR ESTUDANTE &quot;Aldo Silva&quot; 2024001 &quot;9º B&quot;&#10;LISTAR TODOS"></textarea>
+                            <textarea id="codigo" placeholder="Digite seus comandos aqui..."></textarea>
                         </div>
 
                         <div class="text-center mt-3">
                             <button onclick="executarCodigo()" class="btn btn-executar">
-                                <i class="fas fa-play"></i> Executar Código (Ctrl+Enter)
+                                <i class="fas fa-play"></i> Executar 
                             </button>
                         </div>
 
@@ -528,6 +525,21 @@ ESTATISTICAS</pre>
                             <div id="output" class="terminal-content">
                                 <span style="color: var(--cinza);">> Aguardando comandos...</span>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- xyz -->
+                    <div class="col-lg-5" >
+                        <div class="info-card mt-3">
+                            <div class="card-title">
+                                <i class="fas fa-lightbulb"></i> Exemplo 
+                            </div>
+                            <pre style="background:var(--cinza-claro); padding: 0.75rem; border-radius: 1rem; font-size: 0.75rem; margin: 0; overflow-x: auto; color: var(--azul-escuro); border: 1px solid var(--cinza);">
+                                &#10;CADASTRAR ESTUDANTE "Aldo Silva" 20230145 "12º A" &#10;ADICIONAR NOTAS 20230145 15 18 17 &#10;LISTAR TODOS &#10;ESTATISTICAS
+                            </pre>
+                            <button class="btn btn-sm w-100 mt-2" style="background: var(--laranja); color: var(--branco); border: none;" onclick="carregarExemplo()">
+                                <i class="fas fa-copy"></i> Usar este exemplo
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -558,7 +570,7 @@ ADICIONAR NOTAS 20230145 15 18 17
 LISTAR TODOS
 ESTATISTICAS`;
             document.getElementById('codigo').value = exemplo;
-            showTemporaryMessage('📋 Exemplo carregado! Clique em Executar para rodar.', 'info');
+            showTemporaryMessage('Exemplo carregado! Clique em \"Executar\" para rodar.', 'info');
         }
 
         function showTemporaryMessage(msg, tipo = 'info') {
@@ -573,7 +585,7 @@ ESTATISTICAS`;
 
         function limparTerminal() {
             const output = document.getElementById('output');
-            output.innerHTML = '<span style="color: var(--cinza);">> Terminal limpo. Aguardando comandos...</span>';
+            output.innerHTML = '<span style="color: var(--cinza);">> Aguardando comandos...</span>';
         }
 
         function executarCodigo() {
@@ -581,7 +593,7 @@ ESTATISTICAS`;
             const output = document.getElementById('output');
             
             if (!codigo.trim()) {
-                output.innerHTML = '<div class="message erro">⚠️ Digite algum comando antes de executar.</div>';
+                output.innerHTML = '<div class="message erro">Digite algum comando antes de executar.</div>';
                 return;
             }
 
@@ -610,7 +622,8 @@ ESTATISTICAS`;
                         // Criar elemento da mensagem
                         const msgDiv = document.createElement('div');
                         msgDiv.className = `message ${tipo}`;
-                        msgDiv.innerHTML = `${icone} ${mensagem}`;
+                        // msgDiv.innerHTML = `${icone} ${mensagem}`;
+                        msgDiv.innerHTML = `${mensagem}`;
                         output.appendChild(msgDiv);
 
                         // Se houver dados de alunos, mostrar tabela
@@ -626,13 +639,13 @@ ESTATISTICAS`;
                         }
                     });
                 } else {
-                    output.innerHTML = '<div class="message erro">Nenhum resultado retornado do servidor.</div>';
+                    output.innerHTML = '<div class="message erro">Comando Incompleto.</div>';
                 }
                 
                 output.scrollTop = output.scrollHeight;
             })
             .catch(error => {
-                output.innerHTML = `<div class="message erro">❌ Erro ao conectar ao servidor: ${error.message}</div>`;
+                output.innerHTML = `<div class="message erro">Erro ao conectar ao servidor: ${error.message}</div>`;
                 console.error('Erro:', error);
             });
         }
@@ -684,6 +697,10 @@ ESTATISTICAS`;
                 executarCodigo();
             }
         });
+
+        document.querySelector('.hero').addEventListener('click', function(ttoque) {
+            window.location.href = '/'
+        })
     </script>
 </body>
 
