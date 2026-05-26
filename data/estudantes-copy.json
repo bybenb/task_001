@@ -11,31 +11,39 @@
   },
   {
     "nome": "Kojima Bruno",
-    "matricula": 2025014,
+    "matricula": 20211778,
     "turma": "10º C",
     "notas": []
   },
   {
     "nome": "Joana Dumbo",
-    "matricula": 20250011,
+    "matricula": 20230468,
     "turma": "12º A",
     "notas": []
   },
   {
     "nome": "Júlia Machado",
-    "matricula": 20230101,
+    "matricula": 202380668,
     "turma": "10º C",
     "notas": [13, 20, 14]
   },
   {
     "nome": "Jelisa Bravo",
-    "matricula": 2026,
+    "matricula": 20232048,
     "turma": "12º A",
     "notas": []
   },
+
+  {
+    "nome": "Joelma Cacete",
+    "matricula": 20231788,
+    "turma": "12º A",
+    "notas": []
+  },
+
   {
     "nome": "Johan Neto",
-    "matricula": 20259001,
+    "matricula": 20231998,
     "turma": "10º C",
     "notas": [19, 19, 19]
   },
@@ -53,7 +61,7 @@
 
   {
     "nome": "Juddith Dream",
-    "matricula": 20250903,
+    "matricula": 20231998,
     "turma": "12º A",
     "notas": [
 
@@ -63,7 +71,7 @@
 
   {
     "nome": "Jolinda Cabando",
-    "matricula": 20250904,
+    "matricula": 20230108,
     "turma": "12º A",
     "notas": [
       15,
@@ -95,6 +103,16 @@
   },
 
   {
+    "nome": "Jane King",
+    "matricula": 20231288,
+    "turma": "12º A",
+    "notas": [
+      1,
+      8,
+      13
+    ]
+  },  
+  {
     "nome": "Jorge Gomes",
     "matricula": 20250909,
     "turma": "10º C",
@@ -120,7 +138,7 @@
 
   {
     "nome": "Joelma Simião",
-    "matricula": 20261111,
+    "matricula": 20232598,
     "turma": "12º B",
     "notas": [2, 13, 19]
   }

@@ -200,7 +200,7 @@ class Interpreter:
             else:
                 media_geral = max_geral = min_geral = 0
             
-            mensagem = f"Total de estudantes: {len(self.estudantes)}\\nMédia geral: {media_geral:.2f}\\nMaior nota: {max_geral}\\nMenor nota: {min_geral}"
+            mensagem = f"Total de estudantes: {len(self.estudantes)} <br>Média geral: {media_geral:.2f} <br>Maior nota: {max_geral} <br> Menor nota: {min_geral}"
             
             return {
                 "sucesso": True,

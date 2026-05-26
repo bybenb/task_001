@@ -117,7 +117,7 @@
         }
 
         .sidebar a {
-            color: #666;
+            color: #585656;
             text-decoration: none;
             padding: 0.5rem 0.8rem;
             display: block;
@@ -453,27 +453,33 @@
                     <p><strong>Exemplo:</strong></p>
                     <pre><code>CADASTRAR 101 "Nelma Bravo" "10º A" &#10;CADASTRAR 102 "Zulmira Milagre" "10º A"</code></pre>
 
+
                     <h3>REMOVER</h3>
                     <p><strong>Propósito:</strong> Deletar um estudante</p>
                     <pre><code>REMOVER 101</code></pre>
 
+
                     <h3>CONSULTAR</h3>
                     <p><strong>Propósito:</strong> Ver informações de um estudante</p>
-                    <pre><code>CONSULTAR 101 &#10;CONSULTAR NOTAS</code></pre>
+                    <pre><code>CONSULTAR 101 &#10;CONSULTAR NOTAS 101</code></pre>
 
-                    <h3>LISTAR TODOS</h3>
-                    <p><strong>Propósito:</strong> Ver todos os estudantes ou de uma turma específica</p>
-                    <pre><code>LISTAR
-    LISTAR "10º A"</code></pre>
 
                     <h3>ADICIONAR NOTAS</h3>
                     <p><strong>Propósito:</strong> Registrar notas para um estudante</p>
                     <pre><code>ADICIONAR NOTAS 101 8.5 9.0 7.5</code></pre>
 
+                    <!--                     
                     <div class="alert-custom">
                         <i class="fas fa-warning"></i>
                         <strong>Validação:</strong> Notas devem estar entre 0 e 20
                     </div>
+                -->
+
+                    <h3>LISTAR TODOS</h3>
+                    <p><strong>Propósito:</strong> Ver dados de todos os estudantes, não importa a turma</p>
+
+
+
 
                     <!-- COMANDOS AVANÇADOS -->
                     <h2 id="comandos-avancados"><i class="fas fa-star"></i> Comandos Avançados</h2>
@@ -547,8 +553,8 @@
                                 </tr>
                                 <tr>
                                     <td><code>LISTAR</code></td>
-                                    <td>Listar todos</td>
-                                    <td><code>LISTAR "10º A"</code></td>
+                                    <td>Lista todos estudantes na escola</td>
+                                    <td><code>LISTAR TODOS"</code></td>
                                 </tr>
                                 <tr>
                                     <td><code>ADICIONAR_NOTAS</code></td>
@@ -557,12 +563,12 @@
                                 </tr>
                                 <tr>
                                     <td><code>PROMOVER TURMA</code></td>
-                                    <td>Mover turma</td>
+                                    <td>Mudar nome de uma turma</td>
                                     <td><code>PROMOVER TURMA "10º A" "11º A"</code></td>
                                 </tr>
                                 <tr>
                                     <td><code>PROMOVER ESTUDANTE</code></td>
-                                    <td>Mover estudante</td>
+                                    <td>Mudar nome de um estudante</td>
                                     <td><code>PROMOVER ESTUDANTE 101 "11º B"</code></td>
                                 </tr>
                                 <tr>
@@ -572,7 +578,7 @@
                                 </tr>
                                 <tr>
                                     <td><code>SAIR</code></td>
-                                    <td>Limpar dados</td>
+                                    <td>Encerra o Editor</td>
                                     <td><code>SAIR</code></td>
                                 </tr>
                             </tbody>
