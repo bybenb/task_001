@@ -19,7 +19,7 @@
     <meta property="og:type" content="website">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/static/favicon.png">
+    <link rel="icon" type="image/svg" href="/static/logo.svg">
 
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -329,7 +329,6 @@
                 grid-template-columns: 1fr;
             }
         }
-        
     </style>
 </head>
 
@@ -338,10 +337,11 @@
     <nav class="navbar navbar-custom navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="/static/logo.png" alt="BravON Logo">
+                <img src="/static/logo.svg" alt="BravON Logo">
                 <span>BravON</span>
             </a>
-            <button class="navbar-toggler" style="background-color: var(--laranja);" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" style="background-color: var(--laranja);" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -371,60 +371,68 @@
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
                 <h1 style="color: white; margin-bottom: 2rem; font-weight: 700;">
-                    <!-- <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>  --> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <!-- <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>  --> &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp;
                 </h1>
 
                 <!-- MISSION -->
                 <div class="content-card">
                     <h2><i class="fas fa-target"></i> </h2>
 
-                    
+
                     <p style="margin: 0;">
                         O <strong>BravOn</strong> é uma linguagem de
-                        programação educacional intuitiva, focada em gestão de turmas e escolas. Foi criado com a convicção de que a tecnologia
-                        deve servir a <strong>educação</strong>. Com uma sintaxe em português e operações transparentes, qualquer pessoa lusofona
-                        pode facilmente gerenciar turmas, registrar notas e gerar relatórios sem conhecimentos avançados de programação.
+                        programação educacional intuitiva, focada em gestão de turmas e escolas. Foi criado com a
+                        convicção de que a tecnologia
+                        deve servir a <strong>educação</strong>. Com uma sintaxe em português e operações transparentes,
+                        qualquer pessoa lusofona
+                        pode facilmente gerenciar turmas, registrar notas e gerar relatórios sem conhecimentos avançados
+                        de programação.
                     </p>
                     <p>
-                        Atualmente o BravON é uma linguagem DSL totalmente Open-Source e 24h/Uptime, desenvolvida por uma equipa de programadores e designers 
-                        apaixonados por tornar a educação melhor <strong>através da tecnologia</strong>, pertencente a <a id="ref_unitic"><strong>UNITIC</strong></a>.
+                        Atualmente o BravON é uma linguagem DSL totalmente Open-Source e 24h/Uptime, desenvolvida por
+                        uma equipa de programadores e designers
+                        apaixonados por tornar a educação melhor <strong>através da tecnologia</strong>, pertencente a
+                        <a id="ref_unitic"><strong>UNITIC</strong></a>.
 
 
 
-                <!-- CONTACT -->
-                <div class="content-card">
-                    <h2><i class="fas fa-envelope"></i> Contactos</h2>
+                        <!-- CONTACT -->
+                    <div class="content-card">
+                        <h2><i class="fas fa-envelope"></i> Contactos</h2>
 
-                    <p>Tem dúvidas, sugestões ou quer reportar um bug? Contacte-nos:</p>
+                        <p>Tem dúvidas, sugestões ou quer reportar um bug? Contacte-nos:</p>
 
-                    <ul class="features-list">
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span><a href="mailto:itsbenyreis@gmail.com" 
-                                style="color: var(--laranja); text-decoration: none;">Desenvolvedores</a></span>
-                        </li>
-                        <li>
-                            <i class="fas fa-github"></i>
-                            <span><a href="https://github.com/bybenb/task_001/blob/main/README.md" target="_blank"
-                                    style="color: var(--laranja); text-decoration: none;">Open Source</a></span>
-                        </li>
-                    </ul>
+                        <ul class="features-list">
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span><a href="mailto:itsbenyreis@gmail.com"
+                                        style="color: var(--laranja); text-decoration: none;">Desenvolvedores</a></span>
+                            </li>
+                            <li>
+                                <i class="fas fa-github"></i>
+                                <span><a href="https://github.com/bybenb/task_001/blob/main/README.md" target="_blank"
+                                        style="color: var(--laranja); text-decoration: none;">Open Source</a></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- FOOTER -->
-    <footer style="margin-top: auto;">
-        <p>&copy; 2026 BravON. Todos os direitos reservados.</p>
-        <p><strong style="color: var(--laranja);"> Powered by   <a href="https://unitic.site" target="_blank"   >UNITIC</a></strong></p>
-    </footer>
+        <!-- FOOTER -->
+        <footer style="margin-top: auto;">
+            <p>&copy; 2026 BravON. Todos os direitos reservados.</p>
+            <p><strong style="color: var(--laranja);"> Powered by <a href="https://unitic.site"
+                        target="_blank">UNITIC</a></strong></p>
+        </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.querySelector('#ref_unitic').addEventListener('click', function () {  
-            window.open(href="https://unitic.site/sobre", target='_blank')  })
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.querySelector('#ref_unitic').addEventListener('click', function () {
+                window.open(href = "https://unitic.site/sobre", target = '_blank')
+            })
+        </script>
 </body>
 
 </html>
