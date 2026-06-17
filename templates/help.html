@@ -436,29 +436,29 @@
                             class="badge-custom"><kbd>Ctrl+Enter</kbd></span> (se estiver no computador).</p>
 
                     <h3>3. Primeiro Programa</h3>
-                    <pre><code>CADASTRAR 107 "Nelma Bravo" "10º A"
-    CONSULTAR 101
+                    <pre><code>CADASTRAR ESTUDANTE  "Nelma Bravo"  107 "10º A"
+    CONSULTAR NOTAS 101
     LISTAR</code></pre>
 
                     <!-- COMANDOS BÁSICOS -->
                     <h2 id="comandos-basicos"> Comandos Básicos</h2>
 
-                    <h3>CADASTRAR</h3>
+                    <h3>CADASTRAR ESTUDANTE</h3>
                     <p><strong>Propósito:</strong> Adicionar um novo estudante</p>
                     <p><strong>Sintaxe:</strong></p>
-                    <pre><code>CADASTRAR &lt;matrícula&gt; "&lt;nome&gt;" "&lt;turma&gt;"</code></pre>
+                    <pre><code>CADASTRAR ESTUDANTE "&lt;nome&gt;"  &lt;matrícula&gt;  "&lt;turma&gt;"</code></pre>
                     <p><strong>Exemplo:</strong></p>
-                    <pre><code>CADASTRAR 101 "Nelma Bravo" "10º A" &#10;CADASTRAR 102 "Zulmira Milagre" "10º A"</code></pre>
+                    <pre><code>CADASTRAR ESTUDANTE "Nelma Bravo" 101  "10º A" &#10;CADASTRAR ESTUDANTE "Zulmira Milagre"  102  "10º A"</code></pre>
 
 
-                    <h3>REMOVER</h3>
+                    <h3>REMOVER ESTUDANTE</h3>
                     <p><strong>Propósito:</strong> Deletar um estudante</p>
-                    <pre><code>REMOVER 101</code></pre>
+                    <pre><code>REMOVER ESTUDANTE 101</code></pre>
 
 
                     <h3>CONSULTAR</h3>
                     <p><strong>Propósito:</strong> Ver informações de um estudante</p>
-                    <pre><code>CONSULTAR 101 &#10;CONSULTAR NOTAS 101</code></pre>
+                    <pre><code>CONSULTAR NOTAS  101</code></pre>
 
 
                     <h3>ADICIONAR NOTAS</h3>
@@ -502,11 +502,11 @@
                     <h2 id="exemplos"><i class="fas fa-code"></i> Exemplos Práticos</h2>
 
                     <h3>Exemplo 1: Criar uma Turma Completa</h3>
-                    <pre><code>CADASTRAR 101 "Nelma Bravo" "10º A"
-    CADASTRAR 102 "Zulmira Milagre" "10º A"
-    CADASTRAR 103 "Jo Cabando" "10º A"
-    ADICIONAR_NOTAS 101 9.5 8.0 9.0
-    ADICIONAR_NOTAS 102 8.0 8.5 7.5
+                    <pre><code>CADASTRAR ESTUDANTE "Nelma Bravo" 101  "10º A"
+    CADASTRAR ESTUDANTE  "Zulmira Milagre" 102 "10º A"
+    CADASTRAR ESTUDANTE "Jo Cabando" 103  "10º A"
+    ADICIONAR NOTAS 101 9.5 8.0 9.0
+    ADICIONAR NOTAS 102 8.0 8.5 7.5
     LISTAR "10º A"
     RELATORIO "10º A"</code></pre>
 
@@ -529,19 +529,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><code>CADASTRAR</code></td>
+                                    <td><code>CADASTRAR ESTUDANTE</code></td>
                                     <td>Adicionar estudante</td>
-                                    <td><code>CADASTRAR 101 "Nome" "Turma"</code></td>
+                                    <td><code>CADASTRAR ESTUDANTE "Nome" 101  "Turma"</code></td>
                                 </tr>
                                 <tr>
-                                    <td><code>REMOVER</code></td>
+                                    <td><code>REMOVER ESTUDANTE</code></td>
                                     <td>Deletar estudante</td>
-                                    <td><code>REMOVER 101</code></td>
+                                    <td><code>REMOVER ESTUDANTE 101</code></td>
                                 </tr>
                                 <tr>
                                     <td><code>CONSULTAR</code></td>
                                     <td>Ver detalhes</td>
-                                    <td><code>CONSULTAR 101</code></td>
+                                    <td><code>CONSULTAR NOTAS 101</code></td>
                                 </tr>
                                 <tr>
                                     <td><code>LISTAR</code></td>
@@ -551,7 +551,7 @@
                                 <tr>
                                     <td><code>ADICIONAR_NOTAS</code></td>
                                     <td>Registrar notas</td>
-                                    <td><code>ADICIONAR_NOTAS 101 9.5 8.0</code></td>
+                                    <td><code>ADICIONAR NOTAS 101 9.5 8.0</code></td>
                                 </tr>
                                 <tr>
                                     <td><code>PROMOVER TURMA</code></td>

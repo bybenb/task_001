@@ -187,3 +187,4 @@ class Parser:
     def comando_estatisticas(self):
         self.eat('ESTATISTICAS')
         return {"tipo": "ESTATISTICAS"}
+

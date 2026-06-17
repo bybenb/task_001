@@ -18,10 +18,10 @@ class Interpreter:
                 self.estudantes = json.load(f)
             except json.JSONDecodeError:
 
-                # File exists but is empty or invalid JSON; initialize empty list
                 self.estudantes = []
 
-                # Overwrite the file with a valid empty JSON array
+
+
                 with open(DATA_FILE, 'w', encoding='utf-8') as fw:
                     json.dump(self.estudantes, fw, ensure_ascii=False, indent=2)
 
@@ -219,3 +219,4 @@ class Interpreter:
             return {"sucesso": True, "mensagem": "Sistema encerrado."}
 
         return {"sucesso": False, "mensagem": "Comando não reconhecido."}
+
